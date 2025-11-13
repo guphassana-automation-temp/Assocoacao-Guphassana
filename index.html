@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Associação Guphassana - Transformando Vidas</title>
+    <title>Associação Guphassana - Proteção Infantil, Igualdade de Gênero, Saúde e Ambiente</title>
     <link rel="stylesheet" href="css/css.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -12,7 +12,7 @@
     <div class="top-bar">
         <div class="container">
             <div class="top-bar-left">
-                <span><i class="fas fa-map-marker-alt"></i> Maxixe, Inhambane, Moçambique</span>
+                <span><i class="fas fa-map-marker-alt"></i> Maxixe, Moçambique</span>
                 <span><i class="fas fa-phone"></i> +258 823 933 624</span>
             </div>
             <div class="top-bar-right">
@@ -31,12 +31,17 @@
     <header class="main-header">
         <div class="container">
             <nav class="main-nav">
-                <div class="logo">
+                <div class="logo-container">
                     <img src="assets/Logo_Guphassana.png" alt="Associação Guphassana" class="logo-img">
+                    <div class="org-name">
+                        <span class="org-main">Associação Guphassana</span>
+                        <span class="org-sub">Ajuda Mútua</span>
+                    </div>
                 </div>
                 <ul class="nav-menu">
                     <li><a href="#home" class="nav-link active">Início</a></li>
-                    <li><a href="#about" class="nav-link">Nosso Trabalho</a></li>
+                    <li><a href="#about" class="nav-link">Quem Somos</a></li>
+                    <li><a href="#work" class="nav-link">Nosso Trabalho</a></li>
                     <li><a href="#projects" class="nav-link">Projetos</a></li>
                     <li><a href="#impact" class="nav-link">Impacto</a></li>
                     <li><a href="#contact" class="nav-link">Contacto</a></li>
@@ -52,11 +57,25 @@
     <section id="home" class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1 class="hero-title">Transformando Vidas, Construindo Futuros</h1>
-                <p class="hero-description">Junte-se à nossa missão de criar impacto positivo através de educação, saúde e desenvolvimento comunitário sustentável.</p>
+                <h1 class="hero-title" data-lang="pt">Protegendo Crianças, Transformando Comunidades</h1>
+                <h1 class="hero-title" data-lang="en" style="display: none;">Protecting Children, Transforming Communities</h1>
+                <h1 class="hero-title" data-lang="fr" style="display: none;">Protéger les Enfants, Transformer les Communautés</h1>
+                
+                <p class="hero-description" data-lang="pt">Promovemos o bem-estar integral de crianças, igualdade de gênero, saúde universal e preservação ambiental em Moçambique.</p>
+                <p class="hero-description" data-lang="en" style="display: none;">We promote the integral well-being of children, gender equality, universal health and environmental preservation in Mozambique.</p>
+                <p class="hero-description" data-lang="fr" style="display: none;">Nous promouvons le bien-être intégral des enfants, l'égalité des genres, la santé universelle et la préservation de l'environnement au Mozambique.</p>
+                
                 <div class="hero-actions">
-                    <button class="btn-primary" id="hero-donate">Doar Agora</button>
-                    <button class="btn-secondary" id="hero-learn">Saber Mais</button>
+                    <button class="btn-primary" id="hero-donate">
+                        <span data-lang="pt">Doar Agora</span>
+                        <span data-lang="en" style="display: none;">Donate Now</span>
+                        <span data-lang="fr" style="display: none;">Faire un Don</span>
+                    </button>
+                    <button class="btn-secondary" id="hero-learn">
+                        <span data-lang="pt">Saber Mais</span>
+                        <span data-lang="en" style="display: none;">Learn More</span>
+                        <span data-lang="fr" style="display: none;">En savoir plus</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -68,94 +87,246 @@
             <div class="access-grid">
                 <a href="#about" class="access-card">
                     <i class="fas fa-hands-helping"></i>
-                    <h3>Nosso Trabalho</h3>
-                    <p>Conheça nossas áreas de atuação</p>
+                    <h3 data-lang="pt">Quem Somos</h3>
+                    <h3 data-lang="en" style="display: none;">About Us</h3>
+                    <h3 data-lang="fr" style="display: none;">Qui Sommes-Nous</h3>
+                    <p data-lang="pt">Conheça nossa missão, visão e valores</p>
+                    <p data-lang="en" style="display: none;">Learn about our mission, vision and values</p>
+                    <p data-lang="fr" style="display: none;">Découvrez notre mission, vision et valeurs</p>
+                </a>
+                
+                <a href="#work" class="access-card">
+                    <i class="fas fa-bullseye"></i>
+                    <h3 data-lang="pt">Áreas de Atuação</h3>
+                    <h3 data-lang="en" style="display: none;">Areas of Work</h3>
+                    <h3 data-lang="fr" style="display: none;">Domaines d'Action</h3>
+                    <p data-lang="pt">Nossas quatro áreas principais de trabalho</p>
+                    <p data-lang="en" style="display: none;">Our four main areas of work</p>
+                    <p data-lang="fr" style="display: none;">Nos quatre domaines principaux de travail</p>
                 </a>
                 
                 <a href="#projects" class="access-card">
                     <i class="fas fa-project-diagram"></i>
-                    <h3>Projetos</h3>
-                    <p>Veja nossos projetos em andamento</p>
-                </a>
-                
-                <a href="#impact" class="access-card">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Impacto</h3>
-                    <p>Resultados e métricas</p>
+                    <h3 data-lang="pt">Projetos</h3>
+                    <h3 data-lang="en" style="display: none;">Projects</h3>
+                    <h3 data-lang="fr" style="display: none;">Projets</h3>
+                    <p data-lang="pt">Conheça nossos projetos em andamento</p>
+                    <p data-lang="en" style="display: none;">Discover our ongoing projects</p>
+                    <p data-lang="fr" style="display: none;">Découvrez nos projets en cours</p>
                 </a>
                 
                 <a href="#contact" class="access-card">
                     <i class="fas fa-envelope"></i>
-                    <h3>Contacto</h3>
-                    <p>Fale connosco</p>
+                    <h3 data-lang="pt">Contacto</h3>
+                    <h3 data-lang="en" style="display: none;">Contact</h3>
+                    <h3 data-lang="fr" style="display: none;">Contact</h3>
+                    <p data-lang="pt">Junte-se à nossa causa</p>
+                    <p data-lang="en" style="display: none;">Join our cause</p>
+                    <p data-lang="fr" style="display: none;">Rejoignez notre cause</p>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Seção Nosso Trabalho -->
+    <!-- Seção Quem Somos -->
     <section id="about" class="section section-light">
         <div class="container">
             <div class="section-header">
-                <h2>Nosso Trabalho</h2>
-                <p>Áreas de atuação onde criamos impacto positivo</p>
+                <h2 data-lang="pt">Quem Somos</h2>
+                <h2 data-lang="en" style="display: none;">About Us</h2>
+                <h2 data-lang="fr" style="display: none;">Qui Sommes-Nous</h2>
+                <p data-lang="pt">Conheça a Associação Guphassana e nossa razão de existir</p>
+                <p data-lang="en" style="display: none;">Learn about Guphassana Association and our purpose</p>
+                <p data-lang="fr" style="display: none;">Découvrez l'Association Guphassana et notre raison d'être</p>
             </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3 data-lang="pt">Nossa História</h3>
+                    <h3 data-lang="en" style="display: none;">Our Story</h3>
+                    <h3 data-lang="fr" style="display: none;">Notre Histoire</h3>
+                    
+                    <p data-lang="pt">A Associação Guphassana, que significa "Ajuda Mútua", é uma organização sem fins lucrativos moçambicana reconhecida juridicamente, dedicada ao desenvolvimento comunitário sustentável e transformação social.</p>
+                    <p data-lang="en" style="display: none;">Guphassana Association, which means "Mutual Aid", is a legally recognized Mozambican non-profit organization dedicated to sustainable community development and social transformation.</p>
+                    <p data-lang="fr" style="display: none;">L'Association Guphassana, qui signifie « Aide Mutuelle », est une organisation mozambicaine à but non lucratif reconnue juridiquement, dédiée au développement communautaire durable et à la transformation sociale.</p>
+                    
+                    <div class="mission-vision-values">
+                        <div class="mv-item">
+                            <i class="fas fa-bullseye"></i>
+                            <h4 data-lang="pt">Missão</h4>
+                            <h4 data-lang="en" style="display: none;">Mission</h4>
+                            <h4 data-lang="fr" style="display: none;">Mission</h4>
+                            <p data-lang="pt">Promover a proteção e desenvolvimento de crianças, combater desigualdades de gênero, garantir o direito universal à saúde e proteger o meio ambiente.</p>
+                            <p data-lang="en" style="display: none;">To promote the protection and development of children, combat gender inequalities, guarantee the universal right to health and protect the environment.</p>
+                            <p data-lang="fr" style="display: none;">Promouvoir la protection et le développement des enfants, combattre les inégalités de genre, garantir le droit universel à la santé et protéger l'environnement.</p>
+                        </div>
+                        
+                        <div class="mv-item">
+                            <i class="fas fa-eye"></i>
+                            <h4 data-lang="pt">Visão</h4>
+                            <h4 data-lang="en" style="display: none;">Vision</h4>
+                            <h4 data-lang="fr" style="display: none;">Vision</h4>
+                            <p data-lang="pt">Ser referência global em projetos que integram infância, igualdade de gênero, saúde e sustentabilidade ambiental.</p>
+                            <p data-lang="en" style="display: none;">To be a global reference in projects that integrate childhood, gender equality, health and environmental sustainability.</p>
+                            <p data-lang="fr" style="display: none;">Être une référence mondiale dans les projets qui intègrent l'enfance, l'égalité des genres, la santé et la durabilité environnementale.</p>
+                        </div>
+                        
+                        <div class="mv-item">
+                            <i class="fas fa-heart"></i>
+                            <h4 data-lang="pt">Valores</h4>
+                            <h4 data-lang="en" style="display: none;">Values</h4>
+                            <h4 data-lang="fr" style="display: none;">Valeurs</h4>
+                            <p data-lang="pt">Respeito à dignidade humana, inclusão, sustentabilidade, equidade, transparência, empoderamento comunitário e inovação.</p>
+                            <p data-lang="en" style="display: none;">Respect for human dignity, inclusion, sustainability, equity, transparency, community empowerment and innovation.</p>
+                            <p data-lang="fr" style="display: none;">Respect de la dignité humaine, inclusion, durabilité, équité, transparence, autonomisation communautaire et innovation.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-stats">
+                    <div class="stat">
+                        <div class="stat-number">1500+</div>
+                        <div class="stat-label" data-lang="pt">Pessoas Apoiadas</div>
+                        <div class="stat-label" data-lang="en" style="display: none;">People Supported</div>
+                        <div class="stat-label" data-lang="fr" style="display: none;">Personnes Soutenues</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">25+</div>
+                        <div class="stat-label" data-lang="pt">Projetos Realizados</div>
+                        <div class="stat-label" data-lang="en" style="display: none;">Projects Completed</div>
+                        <div class="stat-label" data-lang="fr" style="display: none;">Projets Réalisés</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label" data-lang="pt">Comunidades</div>
+                        <div class="stat-label" data-lang="en" style="display: none;">Communities</div>
+                        <div class="stat-label" data-lang="fr" style="display: none;">Communautés</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label" data-lang="pt">Anos de Impacto</div>
+                        <div class="stat-label" data-lang="en" style="display: none;">Years of Impact</div>
+                        <div class="stat-label" data-lang="fr" style="display: none;">Ans d'Impact</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Áreas de Atuação -->
+    <section id="work" class="section section-white">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-lang="pt">Nossas Áreas de Atuação</h2>
+                <h2 data-lang="en" style="display: none;">Our Areas of Work</h2>
+                <h2 data-lang="fr" style="display: none;">Nos Domaines d'Action</h2>
+                <p data-lang="pt">Trabalhamos em quatro pilares fundamentais para o desenvolvimento comunitário</p>
+                <p data-lang="en" style="display: none;">We work on four fundamental pillars for community development</p>
+                <p data-lang="fr" style="display: none;">Nous travaillons sur quatre piliers fondamentaux pour le développement communautaire</p>
+            </div>
+            
             <div class="work-grid">
                 <div class="work-card">
-                    <i class="fas fa-graduation-cap"></i>
-                    <h3>Educação</h3>
-                    <p>Programas de alfabetização e capacitação profissional para comunidades carenciadas</p>
+                    <i class="fas fa-child"></i>
+                    <h3 data-lang="pt">Proteção Infantil</h3>
+                    <h3 data-lang="en" style="display: none;">Child Protection</h3>
+                    <h3 data-lang="fr" style="display: none;">Protection de l'Enfance</h3>
+                    <p data-lang="pt">Proteção de crianças contra violência, abuso e exploração. Educação e acesso a oportunidades de desenvolvimento integral.</p>
+                    <p data-lang="en" style="display: none;">Protection of children against violence, abuse and exploitation. Education and access to integral development opportunities.</p>
+                    <p data-lang="fr" style="display: none;">Protection des enfants contre la violence, les abus et l'exploitation. Éducation et accès aux opportunités de développement intégral.</p>
                 </div>
+                
+                <div class="work-card">
+                    <i class="fas fa-venus-mars"></i>
+                    <h3 data-lang="pt">Igualdade de Gênero</h3>
+                    <h3 data-lang="en" style="display: none;">Gender Equality</h3>
+                    <h3 data-lang="fr" style="display: none;">Égalité des Genres</h3>
+                    <p data-lang="pt">Promoção da igualdade de gênero em comunidades e instituições. Combate a estereótipos e fortalecimento do papel da mulher.</p>
+                    <p data-lang="en" style="display: none;">Promotion of gender equality in communities and institutions. Combat stereotypes and strengthen women's role.</p>
+                    <p data-lang="fr" style="display: none;">Promotion de l'égalité des genres dans les communautés et institutions. Lutte contre les stéréotypes et renforcement du rôle des femmes.</p>
+                </div>
+                
                 <div class="work-card">
                     <i class="fas fa-heartbeat"></i>
-                    <h3>Saúde</h3>
-                    <p>Acesso a cuidados de saúde básicos e programas de prevenção de doenças</p>
+                    <h3 data-lang="pt">Saúde Universal</h3>
+                    <h3 data-lang="en" style="display: none;">Universal Health</h3>
+                    <h3 data-lang="fr" style="display: none;">Santé Universelle</h3>
+                    <p data-lang="pt">Garantia de acesso universal a serviços de saúde, com ênfase em saúde pública, nutrição e programas preventivos.</p>
+                    <p data-lang="en" style="display: none;">Guarantee universal access to health services, with emphasis on public health, nutrition and preventive programs.</p>
+                    <p data-lang="fr" style="display: none;">Garantir l'accès universel aux services de santé, avec accent sur la santé publique, la nutrition et les programmes préventifs.</p>
                 </div>
+                
                 <div class="work-card">
-                    <i class="fas fa-seedling"></i>
-                    <h3>Desenvolvimento</h3>
-                    <p>Projetos de desenvolvimento comunitário sustentável e geração de renda</p>
+                    <i class="fas fa-leaf"></i>
+                    <h3 data-lang="pt">Ambiente Sustentável</h3>
+                    <h3 data-lang="en" style="display: none;">Sustainable Environment</h3>
+                    <h3 data-lang="fr" style="display: none;">Environnement Durable</h3>
+                    <p data-lang="pt">Preservação ambiental, educação ecológica e iniciativas que promovam o uso responsável dos recursos naturais.</p>
+                    <p data-lang="en" style="display: none;">Environmental preservation, ecological education and initiatives that promote responsible use of natural resources.</p>
+                    <p data-lang="fr" style="display: none;">Préservation environnementale, éducation écologique et initiatives promouvant l'usage responsable des ressources naturelles.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Seção de Projetos -->
-    <section id="projects" class="section section-white">
+    <section id="projects" class="section section-light">
         <div class="container">
             <div class="section-header">
-                <h2>Nossos Projetos</h2>
-                <p>Iniciativas que transformam realidades</p>
+                <h2 data-lang="pt">Nossos Projetos</h2>
+                <h2 data-lang="en" style="display: none;">Our Projects</h2>
+                <h2 data-lang="fr" style="display: none;">Nos Projets</h2>
+                <p data-lang="pt">Iniciativas que transformam realidades em Moçambique</p>
+                <p data-lang="en" style="display: none;">Initiatives that transform realities in Mozambique</p>
+                <p data-lang="fr" style="display: none;">Initiatives qui transforment les réalités au Mozambique</p>
             </div>
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-icon">
-                        <i class="fas fa-book"></i>
+                        <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3>Educação para Todos</h3>
-                    <p>Programa de alfabetização de adultos e apoio escolar para crianças</p>
+                    <h3 data-lang="pt">Proteção à Criança</h3>
+                    <h3 data-lang="en" style="display: none;">Child Protection</h3>
+                    <h3 data-lang="fr" style="display: none;">Protection de l'Enfance</h3>
+                    <p data-lang="pt">Apoio aos comités comunitários de proteção da criança para identificar, prevenir e responder a casos de violência.</p>
+                    <p data-lang="en" style="display: none;">Support for community child protection committees to identify, prevent and respond to cases of violence.</p>
+                    <p data-lang="fr" style="display: none;">Soutien aux comités communautaires de protection de l'enfance pour identifier, prévenir et répondre aux cas de violence.</p>
                     <div class="project-stats">
-                        <span>500+ beneficiados</span>
+                        <span data-lang="pt">500+ crianças protegidas</span>
+                        <span data-lang="en" style="display: none;">500+ children protected</span>
+                        <span data-lang="fr" style="display: none;">500+ enfants protégés</span>
                     </div>
                 </div>
                 <div class="project-card">
                     <div class="project-icon">
-                        <i class="fas fa-stethoscope"></i>
+                        <i class="fas fa-female"></i>
                     </div>
-                    <h3>Saúde Comunitária</h3>
-                    <p>Consultas médicas gratuitas e campanhas de vacinação</p>
+                    <h3 data-lang="pt">Empoderamento Feminino</h3>
+                    <h3 data-lang="en" style="display: none;">Women Empowerment</h3>
+                    <h3 data-lang="fr" style="display: none;">Autonomisation des Femmes</h3>
+                    <p data-lang="pt">Hortas comunitárias geridas por mulheres, promovendo nutrição e empoderamento econômico.</p>
+                    <p data-lang="en" style="display: none;">Community gardens managed by women, promoting nutrition and economic empowerment.</p>
+                    <p data-lang="fr" style="display: none;">Jardins communautaires gérés par des femmes, promouvant la nutrition et l'autonomisation économique.</p>
                     <div class="project-stats">
-                        <span>1000+ atendimentos</span>
+                        <span data-lang="pt">8 comunidades</span>
+                        <span data-lang="en" style="display: none;">8 communities</span>
+                        <span data-lang="fr" style="display: none;">8 communautés</span>
                     </div>
                 </div>
                 <div class="project-card">
                     <div class="project-icon">
                         <i class="fas fa-hand-holding-water"></i>
                     </div>
-                    <h3>Água Limpa</h3>
-                    <p>Instalação de poços e sistemas de purificação de água</p>
+                    <h3 data-lang="pt">Água e Saneamento</h3>
+                    <h3 data-lang="en" style="display: none;">Water and Sanitation</h3>
+                    <h3 data-lang="fr" style="display: none;">Eau et Assainissement</h3>
+                    <p data-lang="pt">Instalação de poços e sistemas de purificação de água em comunidades carentes.</p>
+                    <p data-lang="en" style="display: none;">Installation of wells and water purification systems in needy communities.</p>
+                    <p data-lang="fr" style="display: none;">Installation de puits et systèmes de purification d'eau dans les communautés défavorisées.</p>
                     <div class="project-stats">
-                        <span>5 comunidades</span>
+                        <span data-lang="pt">5 sistemas instalados</span>
+                        <span data-lang="en" style="display: none;">5 systems installed</span>
+                        <span data-lang="fr" style="display: none;">5 systèmes installés</span>
                     </div>
                 </div>
             </div>
@@ -163,78 +334,111 @@
     </section>
 
     <!-- Seção de Impacto -->
-    <section id="impact" class="section section-light">
+    <section id="impact" class="section section-white">
         <div class="container">
             <div class="section-header">
-                <h2>Nosso Impacto</h2>
-                <p>Resultados que fazem a diferença</p>
+                <h2 data-lang="pt">Nosso Impacto</h2>
+                <h2 data-lang="en" style="display: none;">Our Impact</h2>
+                <h2 data-lang="fr" style="display: none;">Notre Impact</h2>
+                <p data-lang="pt">Resultados que fazem a diferença em Moçambique</p>
+                <p data-lang="en" style="display: none;">Results that make a difference in Mozambique</p>
+                <p data-lang="fr" style="display: none;">Résultats qui font la différence au Mozambique</p>
             </div>
             <div class="impact-stats">
                 <div class="stat-item">
                     <div class="stat-number" data-count="1500">0</div>
-                    <div class="stat-label">Pessoas Apoiadas</div>
+                    <div class="stat-label" data-lang="pt">Pessoas Apoiadas</div>
+                    <div class="stat-label" data-lang="en" style="display: none;">People Supported</div>
+                    <div class="stat-label" data-lang="fr" style="display: none;">Personnes Soutenues</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number" data-count="25">0</div>
-                    <div class="stat-label">Projetos Concluídos</div>
+                    <div class="stat-label" data-lang="pt">Projetos Concluídos</div>
+                    <div class="stat-label" data-lang="en" style="display: none;">Projects Completed</div>
+                    <div class="stat-label" data-lang="fr" style="display: none;">Projets Terminés</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number" data-count="8">0</div>
-                    <div class="stat-label">Comunidades</div>
+                    <div class="stat-label" data-lang="pt">Comunidades</div>
+                    <div class="stat-label" data-lang="en" style="display: none;">Communities</div>
+                    <div class="stat-label" data-lang="fr" style="display: none;">Communautés</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number" data-count="5">0</div>
-                    <div class="stat-label">Anos de Atuação</div>
+                    <div class="stat-label" data-lang="pt">Anos de Atuação</div>
+                    <div class="stat-label" data-lang="en" style="display: none;">Years of Operation</div>
+                    <div class="stat-label" data-lang="fr" style="display: none;">Ans d'Opération</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Seção de Contacto -->
-    <section id="contact" class="section section-white">
+    <section id="contact" class="section section-light">
         <div class="container">
             <div class="section-header">
-                <h2>Contacte-nos</h2>
-                <p>Entre em contacto para saber como pode ajudar</p>
+                <h2 data-lang="pt">Contacte-nos</h2>
+                <h2 data-lang="en" style="display: none;">Contact Us</h2>
+                <h2 data-lang="fr" style="display: none;">Contactez-nous</h2>
+                <p data-lang="pt">Entre em contacto para saber como pode ajudar</p>
+                <p data-lang="en" style="display: none;">Get in touch to learn how you can help</p>
+                <p data-lang="fr" style="display: none;">Contactez-nous pour savoir comment vous pouvez aider</p>
             </div>
             <div class="contact-content">
                 <div class="contact-info">
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
-                            <h4>Localização</h4>
-                            <p>Maxixe, Inhambane, Moçambique</p>
+                            <h4 data-lang="pt">Localização</h4>
+                            <h4 data-lang="en" style="display: none;">Location</h4>
+                            <h4 data-lang="fr" style="display: none;">Localisation</h4>
+                            <p>Maxixe, Moçambique</p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-phone"></i>
                         <div>
-                            <h4>Telefone</h4>
+                            <h4 data-lang="pt">Telefone</h4>
+                            <h4 data-lang="en" style="display: none;">Phone</h4>
+                            <h4 data-lang="fr" style="display: none;">Téléphone</h4>
                             <p>+258 823 933 624</p>
+                            <p>+258 879 233 624</p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
                         <div>
-                            <h4>Email</h4>
-                            <p>info@guphassana.org</p>
+                            <h4 data-lang="pt">Email</h4>
+                            <h4 data-lang="en" style="display: none;">Email</h4>
+                            <h4 data-lang="fr" style="display: none;">Email</h4>
+                            <p>info.guphassana@gmail.com</p>
                         </div>
                     </div>
                 </div>
                 <form class="contact-form" id="contact-form">
                     <div class="form-group">
-                        <label for="name">Nome Completo</label>
+                        <label for="name" data-lang="pt">Nome Completo</label>
+                        <label for="name" data-lang="en" style="display: none;">Full Name</label>
+                        <label for="name" data-lang="fr" style="display: none;">Nom Complet</label>
                         <input type="text" id="name" name="name" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="email" data-lang="pt">Email</label>
+                        <label for="email" data-lang="en" style="display: none;">Email</label>
+                        <label for="email" data-lang="fr" style="display: none;">Email</label>
                         <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
-                        <label for="message">Mensagem</label>
+                        <label for="message" data-lang="pt">Mensagem</label>
+                        <label for="message" data-lang="en" style="display: none;">Message</label>
+                        <label for="message" data-lang="fr" style="display: none;">Message</label>
                         <textarea id="message" name="message" rows="5" required></textarea>
                     </div>
-                    <button type="submit" class="btn-primary">Enviar Mensagem</button>
+                    <button type="submit" class="btn-primary">
+                        <span data-lang="pt">Enviar Mensagem</span>
+                        <span data-lang="en" style="display: none;">Send Message</span>
+                        <span data-lang="fr" style="display: none;">Envoyer Message</span>
+                    </button>
                 </form>
             </div>
         </div>
@@ -245,17 +449,29 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <img src="assets/Logo_Guphassana.png" alt="Guphassana" class="footer-logo">
-                    <p>Transformando vidas através de ações concretas e desenvolvimento sustentável.</p>
+                    <div class="footer-logo-container">
+                        <img src="assets/Logo_Guphassana.png" alt="Guphassana" class="footer-logo">
+                        <div class="footer-org-name">
+                            <span class="footer-org-main">Associação Guphassana</span>
+                            <span class="footer-org-sub">Ajuda Mútua</span>
+                        </div>
+                    </div>
+                    <p data-lang="pt">Protegendo crianças, promovendo igualdade, garantindo saúde e preservando o ambiente em Moçambique.</p>
+                    <p data-lang="en" style="display: none;">Protecting children, promoting equality, ensuring health and preserving the environment in Mozambique.</p>
+                    <p data-lang="fr" style="display: none;">Protéger les enfants, promouvoir l'égalité, garantir la santé et préserver l'environnement au Mozambique.</p>
                 </div>
                 <div class="footer-section">
-                    <h3>Contactos</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Maxixe, Inhambane, Moçambique</p>
+                    <h3 data-lang="pt">Contactos</h3>
+                    <h3 data-lang="en" style="display: none;">Contact</h3>
+                    <h3 data-lang="fr" style="display: none;">Contact</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Maxixe, Moçambique</p>
                     <p><i class="fas fa-phone"></i> +258 823 933 624</p>
-                    <p><i class="fas fa-envelope"></i> info@guphassana.org</p>
+                    <p><i class="fas fa-envelope"></i> info.guphassana@gmail.com</p>
                 </div>
                 <div class="footer-section">
-                    <h3>Siga-nos</h3>
+                    <h3 data-lang="pt">Siga-nos</h3>
+                    <h3 data-lang="en" style="display: none;">Follow Us</h3>
+                    <h3 data-lang="fr" style="display: none;">Suivez-nous</h3>
                     <div class="social-links">
                         <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -264,7 +480,11 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Associação Guphassana. Todos os direitos reservados.</p>
+                <p>&copy; 2024 Associação Guphassana. 
+                   <span data-lang="pt">Todos os direitos reservados.</span>
+                   <span data-lang="en" style="display: none;">All rights reserved.</span>
+                   <span data-lang="fr" style="display: none;">Tous droits réservés.</span>
+                </p>
             </div>
         </div>
     </footer>
