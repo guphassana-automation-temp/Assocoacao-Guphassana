@@ -670,6 +670,214 @@
         </div>
     </div>
 
-    <script src="js/jss.js"></script>
+    <script>
+        // JavaScript Corrigido - Mantendo toda a funcionalidade
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Associação Guphassana - Site carregado com sucesso!');
+            
+            // Remover loading screen
+            const loadingScreen = document.getElementById('loadingScreen');
+            if (loadingScreen) {
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 1500);
+            }
+            
+            // Navegação suave corrigida
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        // Remover active de todos os links
+                        navLinks.forEach(l => l.classList.remove('active'));
+                        // Adicionar active ao link clicado
+                        this.classList.add('active');
+                        
+                        // Scroll suave para a seção
+                        const offsetTop = targetSection.offsetTop - 100;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Botões de doação corrigidos
+            const donateButtons = document.querySelectorAll('#donate-btn, #hero-donate');
+            const donationModal = document.getElementById('donationModal');
+            const closeDonationModal = document.getElementById('closeDonationModal');
+            
+            donateButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (donationModal) {
+                        donationModal.style.display = 'block';
+                    }
+                });
+            });
+            
+            if (closeDonationModal) {
+                closeDonationModal.addEventListener('click', function() {
+                    if (donationModal) {
+                        donationModal.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Botão de voluntariado corrigido
+            const volunteerBtn = document.getElementById('hero-volunteer');
+            const volunteerModal = document.getElementById('volunteerModal');
+            const closeVolunteerModal = document.getElementById('closeVolunteerModal');
+            
+            if (volunteerBtn && volunteerModal) {
+                volunteerBtn.addEventListener('click', function() {
+                    volunteerModal.style.display = 'block';
+                });
+            }
+            
+            if (closeVolunteerModal && volunteerModal) {
+                closeVolunteerModal.addEventListener('click', function() {
+                    volunteerModal.style.display = 'none';
+                });
+            }
+            
+            // Fechar modais ao clicar fora
+            window.addEventListener('click', function(e) {
+                if (donationModal && e.target === donationModal) {
+                    donationModal.style.display = 'none';
+                }
+                if (volunteerModal && e.target === volunteerModal) {
+                    volunteerModal.style.display = 'none';
+                }
+            });
+            
+            // Sistema de tradução corrigido
+            const langButtons = document.querySelectorAll('.lang-btn');
+            langButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const lang = this.id.replace('translate-', '');
+                    
+                    // Remover active de todos
+                    langButtons.forEach(btn => btn.classList.remove('active'));
+                    // Adicionar active ao clicado
+                    this.classList.add('active');
+                    
+                    // Mostrar/ocultar conteúdo por idioma
+                    document.querySelectorAll('[data-lang]').forEach(element => {
+                        if (element.getAttribute('data-lang') === lang) {
+                            element.style.display = '';
+                        } else {
+                            element.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Contador de estatísticas
+            const statNumbers = document.querySelectorAll('.stat-number[data-count]');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.3
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const statNumber = entry.target;
+                        const target = parseInt(statNumber.getAttribute('data-count'));
+                        const duration = 2000;
+                        const step = target / (duration / 16);
+                        let current = 0;
+                        
+                        const timer = setInterval(() => {
+                            current += step;
+                            if (current >= target) {
+                                current = target;
+                                clearInterval(timer);
+                            }
+                            statNumber.textContent = Math.floor(current) + (statNumber.textContent.includes('+') ? '+' : '');
+                        }, 16);
+                        
+                        observer.unobserve(statNumber);
+                    }
+                });
+            }, observerOptions);
+            
+            statNumbers.forEach(stat => {
+                observer.observe(stat);
+            });
+            
+            // Formulário de contacto
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Mensagem enviada com sucesso! Entraremos em contacto em breve.');
+                    this.reset();
+                });
+            }
+            
+            // Sistema de doação
+            const amountButtons = document.querySelectorAll('.amount-btn');
+            const customAmount = document.getElementById('customAmount');
+            const paymentOptions = document.querySelectorAll('.payment-option');
+            const finalizeDonation = document.getElementById('finalizeDonation');
+            let selectedAmount = 0;
+            let selectedMethod = '';
+            
+            amountButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    amountButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    selectedAmount = parseInt(this.getAttribute('data-amount'));
+                    updateDonationButton();
+                });
+            });
+            
+            if (customAmount) {
+                customAmount.addEventListener('input', function() {
+                    amountButtons.forEach(btn => btn.classList.remove('active'));
+                    selectedAmount = parseInt(this.value) || 0;
+                    updateDonationButton();
+                });
+            }
+            
+            paymentOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    paymentOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    selectedMethod = this.getAttribute('data-method');
+                    updateDonationButton();
+                });
+            });
+            
+            function updateDonationButton() {
+                if (selectedAmount > 0 && selectedMethod) {
+                    finalizeDonation.disabled = false;
+                } else {
+                    finalizeDonation.disabled = true;
+                }
+            }
+            
+            if (finalizeDonation) {
+                finalizeDonation.addEventListener('click', function() {
+                    alert(`Obrigado pela sua doação de ${selectedAmount} MT via ${selectedMethod}!`);
+                    if (donationModal) {
+                        donationModal.style.display = 'none';
+                    }
+                });
+            }
+        });
+        
+        // Garantir que tudo funciona após carregamento completo
+        window.addEventListener('load', function() {
+            console.log('Página totalmente carregada - Associação Guphassana');
+        });
+    </script>
 </body>
 </html>
