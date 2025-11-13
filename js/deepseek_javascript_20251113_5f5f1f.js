@@ -1,6 +1,7 @@
-// Sistema principal
+// Sistema principal da Associação Guphassana
 class GuphassanaSite {
     constructor() {
+        this.currentLanguage = 'pt';
         this.init();
     }
 
@@ -8,6 +9,7 @@ class GuphassanaSite {
         this.setupEventListeners();
         this.setupScrollEffects();
         this.setupAnimations();
+        this.initializeLanguageSystem();
     }
 
     setupEventListeners() {
@@ -18,13 +20,16 @@ class GuphassanaSite {
                 const target = document.querySelector(anchor.getAttribute('href'));
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth' });
+                    // Atualizar menu ativo
+                    this.updateActiveNav(anchor.getAttribute('href'));
                 }
             });
         });
 
-        // Botões de doação
+        // Botões de doação - CORRIGIDO
         document.querySelectorAll('#donate-btn, #hero-donate').forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
                 this.handleDonation();
             });
         });
@@ -32,6 +37,7 @@ class GuphassanaSite {
         // Botão saber mais
         document.getElementById('hero-learn')?.addEventListener('click', () => {
             document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+            this.updateActiveNav('#about');
         });
 
         // Formulário de contacto
@@ -40,12 +46,8 @@ class GuphassanaSite {
             this.handleFormSubmit();
         });
 
-        // Botões de idioma
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                this.switchLanguage(btn.id.replace('translate-', ''));
-            });
-        });
+        // Observador para menu ativo durante scroll
+        this.setupScrollSpy();
     }
 
     setupScrollEffects() {
@@ -62,6 +64,33 @@ class GuphassanaSite {
         });
     }
 
+    setupScrollSpy() {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    this.updateActiveNav(`#${id}`);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        sections.forEach(section => observer.observe(section));
+    }
+
+    updateActiveNav(hash) {
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        const activeLink = document.querySelector(`.nav-link[href="${hash}"]`);
+        if (activeLink) {
+            activeLink.classList.add('active');
+        }
+    }
+
     setupAnimations() {
         // Animar números de estatísticas
         this.animateStats();
@@ -75,13 +104,13 @@ class GuphassanaSite {
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.access-card, .work-card, .project-card').forEach(el => {
+        document.querySelectorAll('.access-card, .work-card, .project-card, .mv-item').forEach(el => {
             observer.observe(el);
         });
     }
 
     animateStats() {
-        const stats = document.querySelectorAll('.stat-number');
+        const stats = document.querySelectorAll('.stat-number[data-count]');
         
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -90,7 +119,7 @@ class GuphassanaSite {
                     observer.unobserve(entry.target);
                 }
             });
-        });
+        }, { threshold: 0.5 });
 
         stats.forEach(stat => observer.observe(stat));
     }
@@ -112,36 +141,131 @@ class GuphassanaSite {
         }, 16);
     }
 
-    handleDonation() {
-        alert('Obrigado pelo seu interesse em apoiar a Associação Guphassana! Em breve teremos um sistema de doações online.');
-    }
+    // SISTEMA DE TRADUÇÃO CORRIGIDO
+    initializeLanguageSystem() {
+        // Adicionar event listeners aos botões de idioma
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const lang = btn.id.replace('translate-', '');
+                this.switchLanguage(lang);
+            });
+        });
 
-    handleFormSubmit() {
-        const form = document.getElementById('contact-form');
-        const button = form.querySelector('button[type="submit"]');
-        const originalText = button.textContent;
-
-        // Simular envio
-        button.textContent = 'Enviando...';
-        button.disabled = true;
-
-        setTimeout(() => {
-            alert('Mensagem enviada com sucesso! Entraremos em contacto em breve.');
-            form.reset();
-            button.textContent = originalText;
-            button.disabled = false;
-        }, 2000);
+        // Inicializar com português
+        this.switchLanguage('pt');
     }
 
     switchLanguage(lang) {
+        this.currentLanguage = lang;
+        
         // Atualizar botões ativos
         document.querySelectorAll('.lang-btn').forEach(btn => {
             btn.classList.remove('active');
         });
         document.getElementById(`translate-${lang}`).classList.add('active');
 
-        // Aqui iria a lógica de tradução real
-        console.log(`Idioma alterado para: ${lang}`);
+        // Esconder todos os textos
+        document.querySelectorAll('[data-lang]').forEach(el => {
+            el.style.display = 'none';
+        });
+        
+        // Mostrar textos do idioma selecionado
+        document.querySelectorAll(`[data-lang="${lang}"]`).forEach(el => {
+            el.style.display = el.tagName === 'DIV' ? 'block' : 'inline';
+        });
+
+        // Atualizar atributo lang do HTML
+        document.documentElement.lang = lang;
+    }
+
+    handleDonation() {
+        // Simulação de sistema de doações - CORRIGIDO
+        const donationOptions = `
+            <div style="padding: 20px; text-align: center;">
+                <h3>${this.currentLanguage === 'pt' ? 'Apoie a Associação Guphassana' : 
+                     this.currentLanguage === 'en' ? 'Support Guphassana Association' : 
+                     'Soutenez l\'Association Guphassana'}</h3>
+                <p>${this.currentLanguage === 'pt' ? 'Entre em contacto para fazer a sua doação:' : 
+                     this.currentLanguage === 'en' ? 'Get in touch to make your donation:' : 
+                     'Contactez-nous pour faire votre don:'}</p>
+                <p><strong>Email:</strong> info.guphassana@gmail.com</p>
+                <p><strong>Telefone:</strong> +258 823 933 624</p>
+            </div>
+        `;
+        
+        // Criar modal simples
+        const modal = document.createElement('div');
+        modal.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        `;
+        
+        const modalContent = document.createElement('div');
+        modalContent.style.cssText = `
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        `;
+        modalContent.innerHTML = donationOptions;
+        
+        const closeBtn = document.createElement('button');
+        closeBtn.textContent = this.currentLanguage === 'pt' ? 'Fechar' : 
+                              this.currentLanguage === 'en' ? 'Close' : 'Fermer';
+        closeBtn.style.cssText = `
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        `;
+        closeBtn.onclick = () => document.body.removeChild(modal);
+        
+        modalContent.appendChild(closeBtn);
+        modal.appendChild(modalContent);
+        modal.onclick = (e) => {
+            if (e.target === modal) document.body.removeChild(modal);
+        };
+        
+        document.body.appendChild(modal);
+    }
+
+    handleFormSubmit() {
+        const form = document.getElementById('contact-form');
+        const button = form.querySelector('button[type="submit"]');
+        const originalText = button.innerHTML;
+
+        // Simular envio
+        button.disabled = true;
+        button.innerHTML = this.currentLanguage === 'pt' ? 'Enviando...' :
+                          this.currentLanguage === 'en' ? 'Sending...' :
+                          'Envoi en cours...';
+
+        setTimeout(() => {
+            const successMessage = this.currentLanguage === 'pt' ? 
+                'Mensagem enviada com sucesso! Entraremos em contacto em breve.' :
+                this.currentLanguage === 'en' ?
+                'Message sent successfully! We will contact you soon.' :
+                'Message envoyée avec succès ! Nous vous contacterons bientôt.';
+                
+            alert(successMessage);
+            form.reset();
+            button.disabled = false;
+            button.innerHTML = originalText;
+        }, 2000);
     }
 }
 
@@ -150,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new GuphassanaSite();
 });
 
-// CSS para animações
+// Adicionar CSS para animações
 const style = document.createElement('style');
 style.textContent = `
     .fade-in {
