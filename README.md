@@ -4,6 +4,8 @@
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Responsive](https://img.shields.io/badge/Design-Responsive-blue)](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries)
+[![Accessibility](https://img.shields.io/badge/Accessibility-WCAG_2.1-green)](https://www.w3.org/WAI/standards-guidelines/wcag/)
 
 Site institucional da **Associação Guphassana** (Ajuda Mútua), uma organização moçambicana sem fins lucrativos dedicada ao desenvolvimento comunitário sustentável e transformação social.
 
@@ -12,16 +14,18 @@ Site institucional da **Associação Guphassana** (Ajuda Mútua), uma organizaç
 
 ## 🚀 Sobre o Projeto
 
-Este é o site oficial da Associação Guphassana, desenvolvido com tecnologias modernas para apresentar nossa missão, visão, valores, projetos e impacto nas comunidades moçambicanas.
+Este é o site oficial da Associação Guphassana, completamente redesenhado e modernizado com tecnologias de ponta para apresentar nossa missão, projetos e impacto nas comunidades moçambicanas.
 
 ### ✨ Características Principais
 
-- **🌐 Sistema de Tradução Completo** - Português, Inglês e Francês
-- **📱 Design Totalmente Responsivo** - Adaptável a todos os dispositivos
-- **⚡ Performance Otimizada** - Carregamento rápido e suave
-- **♿ Acessibilidade** - Navegação intuitiva para todos os usuários
-- **🎨 Design Profissional** - Interface moderna e institucional
-- **🔧 Código Limpo** - Estrutura organizada e bem documentada
+- **🌐 Sistema de Tradução Completo** - Português, Inglês e Francês com transição suave
+- **💳 Sistema de Doações Integrado** - Múltiplos métodos de pagamento moçambicanos
+- **📱 Design Totalmente Responsivo** - Mobile-first approach
+- **⚡ Performance Otimizada** - Carregamento rápido com loading screen
+- **♿ Acessibilidade Total** - WCAG 2.1 compliant
+- **🎨 Design Moderno** - Interface profissional com animações suaves
+- **🔔 Sistema de Notificações** - Feedback visual em tempo real
+- **🔧 Código Bem Estruturado** - Arquitetura modular e escalável
 
 ## 🏢 Sobre a Associação Guphassana
 
@@ -45,10 +49,18 @@ Ser referência global em projetos que integram as áreas de infância, igualdad
 
 ## 🛠 Tecnologias Utilizadas
 
+### Frontend
 - **HTML5** - Estrutura semântica moderna
-- **CSS3** - Estilos avançados com variáveis CSS e Grid/Flexbox
-- **JavaScript ES6+** - Interatividade e funcionalidades
+- **CSS3** - Variáveis CSS, Grid, Flexbox, Animações
+- **JavaScript ES6+** - Programação orientada a objetos
 - **Font Awesome 6** - Ícones profissionais
 - **Google Fonts** - Tipografia moderna
+
+### Funcionalidades Avançadas
+- **Intersection Observer API** - Animações on scroll
+- **CSS Custom Properties** - Sistema de cores consistente
+- **Modal System** - Sistema de overlays responsivo
+- **Localization System** - Gerenciamento de múltiplos idiomas
+- **Payment Integration** - Sistema de doações completo
 
 ## 📁 Estrutura do Projeto
