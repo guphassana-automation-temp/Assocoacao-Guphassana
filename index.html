@@ -4,10 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Associação Guphassana - Proteção Infantil, Igualdade de Gênero, Saúde e Ambiente</title>
+    <meta name="description" content="Associação Guphassana - Protegendo crianças, promovendo igualdade de gênero, garantindo saúde universal e preservando o ambiente em Moçambique">
+    <meta name="keywords" content="ONG Moçambique, proteção infantil, igualdade de gênero, saúde, ambiente, Maxixe, doação">
     <link rel="stylesheet" href="css/css.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <div class="logo-placeholder">AG</div>
+            </div>
+            <h3>Associação Guphassana</h3>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
     <!-- Top Bar -->
     <div class="top-bar">
         <div class="container">
@@ -32,7 +45,10 @@
         <div class="container">
             <nav class="main-nav">
                 <div class="logo-container">
-                    <img src="assets/Logo_Guphassana.png" alt="Associação Guphassana" class="logo-img">
+                    <div class="logo-img">
+                        <img src="assets/Logo_Guphassana.png" alt="Associação Guphassana" onerror="this.style.display='none'">
+                        <div class="logo-fallback">AG</div>
+                    </div>
                     <div class="org-name">
                         <span class="org-main">Associação Guphassana</span>
                         <span class="org-sub">Ajuda Mútua</span>
@@ -41,13 +57,16 @@
                 <ul class="nav-menu">
                     <li><a href="#home" class="nav-link active">Início</a></li>
                     <li><a href="#about" class="nav-link">Quem Somos</a></li>
-                    <li><a href="#work" class="nav-link">Nosso Trabalho</a></li>
+                    <li><a href="#work" class="nav-link">Áreas de Atuação</a></li>
                     <li><a href="#projects" class="nav-link">Projetos</a></li>
                     <li><a href="#impact" class="nav-link">Impacto</a></li>
                     <li><a href="#contact" class="nav-link">Contacto</a></li>
                 </ul>
                 <div class="nav-actions">
-                    <button class="btn-donate" id="donate-btn">Doar Agora</button>
+                    <button class="btn-donate" id="donate-btn">
+                        <i class="fas fa-heart"></i>
+                        Doar Agora
+                    </button>
                 </div>
             </nav>
         </div>
@@ -55,6 +74,7 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <div class="hero-background"></div>
         <div class="container">
             <div class="hero-content">
                 <h1 class="hero-title" data-lang="pt">Protegendo Crianças, Transformando Comunidades</h1>
@@ -67,15 +87,38 @@
                 
                 <div class="hero-actions">
                     <button class="btn-primary" id="hero-donate">
+                        <i class="fas fa-donate"></i>
                         <span data-lang="pt">Doar Agora</span>
                         <span data-lang="en" style="display: none;">Donate Now</span>
                         <span data-lang="fr" style="display: none;">Faire un Don</span>
                     </button>
-                    <button class="btn-secondary" id="hero-learn">
-                        <span data-lang="pt">Saber Mais</span>
-                        <span data-lang="en" style="display: none;">Learn More</span>
-                        <span data-lang="fr" style="display: none;">En savoir plus</span>
+                    <button class="btn-secondary" id="hero-volunteer">
+                        <i class="fas fa-hands-helping"></i>
+                        <span data-lang="pt">Ser Voluntário</span>
+                        <span data-lang="en" style="display: none;">Volunteer</span>
+                        <span data-lang="fr" style="display: none;">Devenir Bénévole</span>
                     </button>
+                    <button class="btn-outline" id="hero-partner">
+                        <i class="fas fa-handshake"></i>
+                        <span data-lang="pt">Parcerias</span>
+                        <span data-lang="en" style="display: none;">Partnerships</span>
+                        <span data-lang="fr" style="display: none;">Partenariats</span>
+                    </button>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="stat-number">1500+</div>
+                        <div class="stat-label" data-lang="pt">Pessoas Apoiadas</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-number">25+</div>
+                        <div class="stat-label" data-lang="pt">Projetos Concluídos</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label" data-lang="pt">Comunidades</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -213,8 +256,57 @@
         </div>
     </section>
 
+    <!-- Seção Histórias de Sucesso -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-lang="pt">Histórias de Transformação</h2>
+                <h2 data-lang="en" style="display: none;">Success Stories</h2>
+                <h2 data-lang="fr" style="display: none;">Histoires de Réussite</h2>
+                <p data-lang="pt">Conheça algumas das vidas que transformamos</p>
+                <p data-lang="en" style="display: none;">Meet some of the lives we've transformed</p>
+                <p data-lang="fr" style="display: none;">Découvrez quelques vies que nous avons transformées</p>
+            </div>
+            <div class="stories-grid">
+                <div class="story-card">
+                    <div class="story-icon">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <h3 data-lang="pt">Maria, 8 anos</h3>
+                    <h3 data-lang="en" style="display: none;">Maria, 8 years</h3>
+                    <h3 data-lang="fr" style="display: none;">Maria, 8 ans</h3>
+                    <p data-lang="pt">"Graças ao programa de proteção infantil, Maria agora frequenta a escola regularmente e está segura contra violência."</p>
+                    <p data-lang="en" style="display: none;">"Thanks to the child protection program, Maria now attends school regularly and is safe from violence."</p>
+                    <p data-lang="fr" style="display: none;">"Grâce au programme de protection de l'enfance, Maria va maintenant régulièrement à l'école et est protégée contre la violence."</p>
+                </div>
+                <div class="story-card">
+                    <div class="story-icon">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <h3 data-lang="pt">Ana, Agricultora</h3>
+                    <h3 data-lang="en" style="display: none;">Ana, Farmer</h3>
+                    <h3 data-lang="fr" style="display: none;">Ana, Agricultrice</h3>
+                    <p data-lang="pt">"Com a horta comunitária, Ana aumentou sua renda em 300% e agora lidera outras mulheres da comunidade."</p>
+                    <p data-lang="en" style="display: none;">"With the community garden, Ana increased her income by 300% and now leads other women in the community."</p>
+                    <p data-lang="fr" style="display: none;">"Avec le jardin communautaire, Ana a augmenté ses revenus de 300% et dirige maintenant d'autres femmes de la communauté."</p>
+                </div>
+                <div class="story-card">
+                    <div class="story-icon">
+                        <i class="fas fa-hand-holding-water"></i>
+                    </div>
+                    <h3 data-lang="pt">Comunidade Chambone</h3>
+                    <h3 data-lang="en" style="display: none;">Chambone Community</h3>
+                    <h3 data-lang="fr" style="display: none;">Communauté Chambone</h3>
+                    <p data-lang="pt">"O sistema de água potável instalado pela Guphassana reduziu doenças em 70% na nossa comunidade."</p>
+                    <p data-lang="en" style="display: none;">"The drinking water system installed by Guphassana reduced diseases by 70% in our community."</p>
+                    <p data-lang="fr" style="display: none;">"Le système d'eau potable installé par Guphassana a réduit les maladies de 70% dans notre communauté."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Seção Áreas de Atuação -->
-    <section id="work" class="section section-white">
+    <section id="work" class="section section-light">
         <div class="container">
             <div class="section-header">
                 <h2 data-lang="pt">Nossas Áreas de Atuação</h2>
@@ -270,7 +362,7 @@
     </section>
 
     <!-- Seção de Projetos -->
-    <section id="projects" class="section section-light">
+    <section id="projects" class="section section-white">
         <div class="container">
             <div class="section-header">
                 <h2 data-lang="pt">Nossos Projetos</h2>
@@ -334,7 +426,7 @@
     </section>
 
     <!-- Seção de Impacto -->
-    <section id="impact" class="section section-white">
+    <section id="impact" class="section section-light">
         <div class="container">
             <div class="section-header">
                 <h2 data-lang="pt">Nosso Impacto</h2>
@@ -374,7 +466,7 @@
     </section>
 
     <!-- Seção de Contacto -->
-    <section id="contact" class="section section-light">
+    <section id="contact" class="section section-white">
         <div class="container">
             <div class="section-header">
                 <h2 data-lang="pt">Contacte-nos</h2>
@@ -450,7 +542,9 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <div class="footer-logo-container">
-                        <img src="assets/Logo_Guphassana.png" alt="Guphassana" class="footer-logo">
+                        <div class="footer-logo">
+                            <div class="logo-fallback">AG</div>
+                        </div>
                         <div class="footer-org-name">
                             <span class="footer-org-main">Associação Guphassana</span>
                             <span class="footer-org-sub">Ajuda Mútua</span>
@@ -488,6 +582,93 @@
             </div>
         </div>
     </footer>
+
+    <!-- Modal de Doação -->
+    <div class="modal" id="donationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-lang="pt">Apoie a Associação Guphassana</h3>
+                <h3 data-lang="en" style="display: none;">Support Guphassana Association</h3>
+                <h3 data-lang="fr" style="display: none;">Soutenez l'Association Guphassana</h3>
+                <button class="close-modal" id="closeDonationModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="donation-options">
+                    <h4 data-lang="pt">Escolha o valor da doação</h4>
+                    <h4 data-lang="en" style="display: none;">Choose donation amount</h4>
+                    <h4 data-lang="fr" style="display: none;">Choisissez le montant du don</h4>
+                    
+                    <div class="amount-options">
+                        <button class="amount-btn" data-amount="100">100 MT</button>
+                        <button class="amount-btn" data-amount="500">500 MT</button>
+                        <button class="amount-btn" data-amount="1000">1.000 MT</button>
+                        <button class="amount-btn" data-amount="5000">5.000 MT</button>
+                        <div class="custom-amount">
+                            <input type="number" id="customAmount" placeholder="Outro valor (MT)">
+                        </div>
+                    </div>
+
+                    <div class="payment-methods">
+                        <h4 data-lang="pt">Método de Pagamento</h4>
+                        <h4 data-lang="en" style="display: none;">Payment Method</h4>
+                        <h4 data-lang="fr" style="display: none;">Méthode de Paiement</h4>
+                        
+                        <div class="payment-options">
+                            <div class="payment-option" data-method="mpesa">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span>M-Pesa</span>
+                            </div>
+                            <div class="payment-option" data-method="emola">
+                                <i class="fas fa-wallet"></i>
+                                <span>e-Mola</span>
+                            </div>
+                            <div class="payment-option" data-method="bank">
+                                <i class="fas fa-university"></i>
+                                <span data-lang="pt">Transferência Bancária</span>
+                                <span data-lang="en" style="display: none;">Bank Transfer</span>
+                                <span data-lang="fr" style="display: none;">Virement Bancaire</span>
+                            </div>
+                            <div class="payment-option" data-method="paypal">
+                                <i class="fab fa-paypal"></i>
+                                <span>PayPal</span>
+                            </div>
+                        </div>
+
+                        <div class="payment-details" id="paymentDetails">
+                            <!-- Detalhes do pagamento serão inseridos aqui -->
+                        </div>
+                    </div>
+
+                    <button class="btn-primary btn-donate-final" id="finalizeDonation" disabled>
+                        <span data-lang="pt">Finalizar Doação</span>
+                        <span data-lang="en" style="display: none;">Finalize Donation</span>
+                        <span data-lang="fr" style="display: none;">Finaliser le Don</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Voluntariado -->
+    <div class="modal" id="volunteerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-lang="pt">Torne-se Voluntário</h3>
+                <h3 data-lang="en" style="display: none;">Become a Volunteer</h3>
+                <h3 data-lang="fr" style="display: none;">Devenir Bénévole</h3>
+                <button class="close-modal" id="closeVolunteerModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p data-lang="pt">Entre em contacto para saber mais sobre oportunidades de voluntariado.</p>
+                <p data-lang="en" style="display: none;">Get in touch to learn more about volunteer opportunities.</p>
+                <p data-lang="fr" style="display: none;">Contactez-nous pour en savoir plus sur les opportunités de bénévolat.</p>
+                <div class="contact-info-modal">
+                    <p><i class="fas fa-envelope"></i> info.guphassana@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> +258 823 933 624</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="js/jss.js"></script>
 </body>
