@@ -104,50 +104,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Sistema de Tradução
-    const langButtons = document.querySelectorAll('.lang-btn');
-    let currentLang = 'pt';
-    
-    langButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const lang = button.id.replace('translate-', '');
-            switchLanguage(lang, button);
-        });
-    });
-
-    function switchLanguage(lang, clickedButton = null) {
-        currentLang = lang;
-        
-        // Atualizar botões ativos
-        if (clickedButton) {
-            langButtons.forEach(btn => btn.classList.remove('active'));
-            clickedButton.classList.add('active');
-        }
-        
-        // Atualizar conteúdo por idioma
-        document.querySelectorAll('[data-lang]').forEach(element => {
-            if (element.getAttribute('data-lang') === lang) {
-                element.style.display = '';
-            } else {
-                element.style.display = 'none';
-            }
-        });
-
-        // Atualizar atributos de acessibilidade
-        document.documentElement.lang = lang;
-
-        // Atualizar título da página
-        const titles = {
-            'pt': 'Associação Guphassana - Proteção Infantil, Igualdade de Gênero, Saúde e Ambiente',
-            'en': 'Guphassana Association - Child Protection, Gender Equality, Health and Environment',
-            'fr': 'Association Guphassana - Protection de l\'Enfance, Égalité des Genres, Santé et Environnement'
-        };
-        
-        document.title = titles[lang] || titles['pt'];
-        
-        console.log(`🌐 Idioma alterado para: ${lang}`);
-    }
-
     // Sistema de Modais
     const donationModal = document.getElementById('donationModal');
     const volunteerModal = document.getElementById('volunteerModal');
@@ -180,6 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (modal) {
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
+            document.body.style.paddingRight = '15px';
             
             // Reset do modal de doação ao abrir
             if (modal === donationModal) {
@@ -192,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (modal) {
             modal.style.display = 'none';
             document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
         }
     }
 
@@ -319,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Sistema de Doações
+    // SISTEMA DE DOAÇÕES COMPLETO
     let selectedAmount = 0;
     let selectedMethod = '';
 
@@ -332,6 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configurar botões de valor
     amountButtons.forEach(button => {
         button.addEventListener('click', () => {
+            console.log('💰 Valor selecionado:', button.getAttribute('data-amount'));
             amountButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
             selectedAmount = parseInt(button.getAttribute('data-amount'));
@@ -343,18 +302,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Valor customizado
     if (customAmount) {
         customAmount.addEventListener('input', () => {
+            console.log('💰 Valor customizado:', customAmount.value);
             amountButtons.forEach(btn => btn.classList.remove('active'));
             selectedAmount = parseInt(customAmount.value) || 0;
             updateDonationButton();
+        });
+
+        customAmount.addEventListener('focus', () => {
+            amountButtons.forEach(btn => btn.classList.remove('active'));
         });
     }
 
     // Métodos de pagamento
     paymentOptions.forEach(option => {
         option.addEventListener('click', () => {
+            const method = option.getAttribute('data-method');
+            console.log('💳 Método selecionado:', method);
+            
             paymentOptions.forEach(opt => opt.classList.remove('active'));
             option.classList.add('active');
-            selectedMethod = option.getAttribute('data-method');
+            selectedMethod = method;
             showPaymentDetails(selectedMethod);
             updateDonationButton();
         });
@@ -366,78 +333,69 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function showPaymentDetails(method) {
-        if (!paymentDetails) return;
+        if (!paymentDetails) {
+            console.error('❌ Elemento paymentDetails não encontrado');
+            return;
+        }
 
         const details = {
             mpesa: `
-                <h5>M-Pesa</h5>
-                <p><strong>Número:</strong> 82 393 3624</p>
-                <p><strong>Nome:</strong> Associação Guphassana</p>
-                <p><small>Use a referência: "DOAÇÃO" no campo de descrição</small></p>
+                <h5>💰 M-Pesa</h5>
+                <p><strong>📱 Número:</strong> 82 393 3624</p>
+                <p><strong>👤 Nome:</strong> Associação Guphassana</p>
+                <p><small>💡 Use a referência: "DOAÇÃO" no campo de descrição</small></p>
             `,
             emola: `
-                <h5>e-Mola</h5>
-                <p><strong>Número:</strong> 82 393 3624</p>
-                <p><strong>Nome:</strong> Associação Guphassana</p>
-                <p><small>Transação: Doação para projetos sociais</small></p>
+                <h5>💳 e-Mola</h5>
+                <p><strong>📱 Número:</strong> 82 393 3624</p>
+                <p><strong>👤 Nome:</strong> Associação Guphassana</p>
+                <p><small>💡 Transação: Doação para projetos sociais</small></p>
             `,
             bank: `
-                <h5>Transferência Bancária</h5>
+                <h5>🏦 Transferência Bancária</h5>
                 <p><strong>Banco:</strong> Standard Bank Moçambique</p>
-                <p><strong>Conta:</strong> 1234567890</p>
-                <p><strong>NIB:</strong> 00080001234567890</p>
-                <p><strong>Titular:</strong> Associação Guphassana</p>
+                <p><strong>📋 Conta:</strong> 1234567890</p>
+                <p><strong>🔢 NIB:</strong> 00080001234567890</p>
+                <p><strong>👤 Titular:</strong> Associação Guphassana</p>
             `,
             paypal: `
-                <h5>PayPal</h5>
-                <p><strong>Email:</strong> info.guphassana@gmail.com</p>
-                <p><small>Envie para o email acima com a descrição "Doação"</small></p>
+                <h5>🌐 PayPal</h5>
+                <p><strong>📧 Email:</strong> info.guphassana@gmail.com</p>
+                <p><small>💡 Envie para o email acima com a descrição "Doação"</small></p>
             `
         };
 
         paymentDetails.innerHTML = details[method] || '<p>Selecione um método de pagamento</p>';
+        console.log('📋 Detalhes de pagamento atualizados para:', method);
     }
 
     function updateDonationButton() {
-        if (!finalizeBtn) return;
+        if (!finalizeBtn) {
+            console.error('❌ Botão finalizeDonation não encontrado');
+            return;
+        }
+
+        console.log('🔄 Atualizando botão - Valor:', selectedAmount, 'Método:', selectedMethod);
 
         if (selectedAmount > 0 && selectedMethod) {
             finalizeBtn.disabled = false;
-            
-            // Atualizar texto do botão com informações
-            const amountText = selectedAmount.toLocaleString('pt-MZ') + ' MT';
-            const methodText = selectedMethod.toUpperCase();
-            
-            // Atualizar textos em todos os idiomas
-            ['pt', 'en', 'fr'].forEach(lang => {
-                const elements = finalizeBtn.querySelectorAll(`[data-lang="${lang}"]`);
-                if (elements.length > 0) {
-                    const text = {
-                        'pt': `Doar ${amountText} via ${methodText}`,
-                        'en': `Donate ${amountText} via ${methodText}`,
-                        'fr': `Donner ${amountText} via ${methodText}`
-                    };
-                    elements[0].textContent = text[lang];
-                }
-            });
+            finalizeBtn.innerHTML = `
+                <i class="fas fa-heart"></i>
+                <span>Doar ${selectedAmount.toLocaleString('pt-MZ')} MT via ${selectedMethod.toUpperCase()}</span>
+            `;
+            console.log('✅ Botão ativado');
         } else {
             finalizeBtn.disabled = true;
-            // Restaurar texto original
-            ['pt', 'en', 'fr'].forEach(lang => {
-                const elements = finalizeBtn.querySelectorAll(`[data-lang="${lang}"]`);
-                if (elements.length > 0) {
-                    const text = {
-                        'pt': 'Finalizar Doação',
-                        'en': 'Finalize Donation',
-                        'fr': 'Finaliser le Don'
-                    };
-                    elements[0].textContent = text[lang];
-                }
-            });
+            finalizeBtn.innerHTML = `
+                <i class="fas fa-heart"></i>
+                <span>Finalizar Doação</span>
+            `;
+            console.log('❌ Botão desativado - faltam seleções');
         }
     }
 
     function resetDonationForm() {
+        console.log('🔄 Resetando formulário de doação');
         selectedAmount = 0;
         selectedMethod = '';
         
@@ -445,28 +403,30 @@ document.addEventListener('DOMContentLoaded', function() {
         paymentOptions.forEach(opt => opt.classList.remove('active'));
         
         if (customAmount) customAmount.value = '';
-        if (paymentDetails) paymentDetails.innerHTML = '';
+        if (paymentDetails) paymentDetails.innerHTML = '<p>Selecione um método de pagamento para ver os detalhes</p>';
         
         updateDonationButton();
     }
 
     function processDonation() {
+        console.log('🚀 Processando doação...');
+        
         if (selectedAmount === 0 || !selectedMethod) {
             showNotification('Por favor, selecione um valor e método de pagamento.', 'error');
+            console.error('❌ Doação falhou - seleções incompletas');
             return;
         }
 
         const amountText = selectedAmount.toLocaleString('pt-MZ') + ' MT';
-        const messages = {
-            'pt': `Obrigado pela sua doação de ${amountText}! Instruções de pagamento foram enviadas para o método selecionado.`,
-            'en': `Thank you for your donation of ${amountText}! Payment instructions have been sent to the selected method.`,
-            'fr': `Merci pour votre don de ${amountText}! Les instructions de paiement ont été envoyées à la méthode sélectionnée.`
-        };
+        const message = `Obrigado pela sua doação de ${amountText}! Instruções de pagamento foram enviadas para ${selectedMethod.toUpperCase()}.`;
 
-        showNotification(messages[currentLang] || messages['pt'], 'success');
+        showNotification(message, 'success');
         closeModal(donationModal);
         
-        console.log(`💸 Doação processada: ${amountText} via ${selectedMethod}`);
+        console.log(`💸 Doação processada com sucesso: ${amountText} via ${selectedMethod}`);
+        
+        // Reset após sucesso
+        setTimeout(resetDonationForm, 1000);
     }
 
     // Contadores animados para estatísticas
@@ -486,7 +446,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     statNumbers.forEach(stat => {
-        counterObserver.observe(stat);
+        if (stat.hasAttribute('data-count')) {
+            counterObserver.observe(stat);
+        }
     });
 
     function animateCounter(element, target) {
@@ -502,7 +464,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             const displayValue = Math.floor(current);
-            element.textContent = displayValue.toLocaleString('pt-MZ') + (element.textContent.includes('+') ? '+' : '');
+            const hasPlus = element.textContent.includes('+');
+            element.textContent = displayValue.toLocaleString('pt-MZ') + (hasPlus ? '+' : '');
         }, 16);
     }
 
@@ -527,8 +490,8 @@ document.addEventListener('DOMContentLoaded', function() {
         fadeObserver.observe(element);
     });
 
-    // Inicializar sistema de tradução com Português como padrão
-    switchLanguage('pt', document.getElementById('translate-pt'));
+    // Inicializar sistema de doações
+    resetDonationForm();
 
     console.log('✅ Todos os sistemas inicializados com sucesso');
 });
@@ -537,3 +500,57 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('load', function() {
     console.log('🎉 Página totalmente carregada - Associação Guphassana');
 });
+
+// Adicionar estilos para notificações
+const notificationStyles = document.createElement('style');
+notificationStyles.textContent = `
+    @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOutRight {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+    
+    .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 3000;
+        max-width: 400px;
+        animation: slideInRight 0.3s ease;
+    }
+    
+    .notification-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        color: white;
+    }
+    
+    .notification-close {
+        background: none;
+        border: none;
+        color: inherit;
+        font-size: 1.2rem;
+        cursor: pointer;
+        margin-left: 15px;
+        padding: 0;
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: background-color 0.2s ease;
+    }
+    
+    .notification-close:hover {
+        background: rgba(255,255,255,0.2);
+    }
+`;
+document.head.appendChild(notificationStyles);
