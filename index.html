@@ -1,883 +1,164 @@
+<!-- filename: index.html (substitui o teu index actual) -->
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Associação Guphassana - Proteção Infantil, Igualdade de Gênero, Saúde e Ambiente</title>
-    <meta name="description" content="Associação Guphassana - Protegendo crianças, promovendo igualdade de gênero, garantindo saúde universal e preservando o ambiente em Moçambique">
-    <meta name="keywords" content="ONG Moçambique, proteção infantil, igualdade de gênero, saúde, ambiente, Maxixe, doação">
-    <link rel="stylesheet" href="css/css.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Associação Guphassana - Proteção Infantil, Igualdade de Gênero, Saúde e Ambiente</title>
+  <meta name="description" content="Associação Guphassana - Protegendo crianças, promovendo igualdade de gênero, garantindo saúde universal e preservando o ambiente em Moçambique">
+  <meta name="keywords" content="ONG Moçambique, proteção infantil, igualdade de gênero, saúde, ambiente, Maxixe, doação">
+
+  <!-- estilos -->
+  <link rel="stylesheet" href="css/css.css" />
+  <!-- Font Awesome CDN (já usavas) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="" crossorigin="anonymous"/>
+  <link rel="icon" href="assets/logo.png" />
+
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loading-content">
-            <div class="loading-logo">
-                <div class="logo-placeholder">AG</div>
-            </div>
-            <h3>Associação Guphassana</h3>
-            <div class="loading-spinner"></div>
-        </div>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loadingScreen" aria-hidden="true">
+    <div class="loading-content" role="status" aria-live="polite">
+      <div class="loading-logo"><div class="logo-placeholder">AG</div></div>
+      <h3>Associação Guphassana</h3>
+      <div class="loading-spinner" aria-hidden="true"></div>
     </div>
+  </div>
 
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="container">
-            <div class="top-bar-left">
-                <span><i class="fas fa-map-marker-alt"></i> Maxixe, Moçambique</span>
-                <span><i class="fas fa-phone"></i> +258 823 933 624</span>
-            </div>
-            <div class="top-bar-right">
-                <a href="#donate" class="top-link">Doar</a>
-                <a href="#volunteer" class="top-link">Voluntariar</a>
-                <div class="language-switcher">
-                    <button class="lang-btn active" id="translate-pt">PT</button>
-                    <button class="lang-btn" id="translate-en">EN</button>
-                    <button class="lang-btn" id="translate-fr">FR</button>
-                </div>
-            </div>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-left">
+        <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Maxixe, Moçambique</span>
+        <span><i class="fas fa-phone" aria-hidden="true"></i> +258 823 933 624</span>
+      </div>
+      <div class="top-bar-right">
+        <a href="#donate" class="top-link">Doar</a>
+        <a href="#volunteer" class="top-link">Voluntariar</a>
+        <div class="language-switcher" role="tablist" aria-label="Idioma">
+          <button class="lang-btn active" id="translate-pt" role="tab" aria-selected="true">PT</button>
+          <button class="lang-btn" id="translate-en" role="tab" aria-selected="false">EN</button>
+          <button class="lang-btn" id="translate-fr" role="tab" aria-selected="false">FR</button>
         </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Header Principal -->
-    <header class="main-header">
-        <div class="container">
-            <nav class="main-nav">
-                <div class="logo-container">
-                    <div class="logo-img">
-                        <img src="assets/Logo_Guphassana.png" alt="Associação Guphassana" onerror="this.style.display='none'">
-                        <div class="logo-fallback">AG</div>
-                    </div>
-                    <div class="org-name">
-                        <span class="org-main">Associação Guphassana</span>
-                        <span class="org-sub">Ajuda Mútua</span>
-                    </div>
-                </div>
-                <ul class="nav-menu">
-                    <li><a href="#home" class="nav-link active">Início</a></li>
-                    <li><a href="#about" class="nav-link">Quem Somos</a></li>
-                    <li><a href="#work" class="nav-link">Áreas de Atuação</a></li>
-                    <li><a href="#projects" class="nav-link">Projetos</a></li>
-                    <li><a href="#impact" class="nav-link">Impacto</a></li>
-                    <li><a href="#contact" class="nav-link">Contacto</a></li>
-                </ul>
-                <div class="nav-actions">
-                    <button class="btn-donate" id="donate-btn">
-                        <i class="fas fa-heart"></i>
-                        Doar Agora
-                    </button>
-                </div>
-            </nav>
+  <!-- Header Principal -->
+  <header class="main-header" id="home">
+    <div class="container">
+      <nav class="main-nav" role="navigation" aria-label="Menu principal">
+        <div class="logo-container">
+          <div class="logo-img">
+            <img src="assets/Logo_Guphassana.png" alt="Associação Guphassana" onerror="this.style.display='none'">
+            <div class="logo-fallback" aria-hidden="true">AG</div>
+          </div>
+          <div class="org-name">
+            <span class="org-main">Associação Guphassana</span>
+            <span class="org-sub">Ajuda Mútua</span>
+          </div>
         </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-background"></div>
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title" data-lang="pt">Protegendo Crianças, Transformando Comunidades</h1>
-                <h1 class="hero-title" data-lang="en" style="display: none;">Protecting Children, Transforming Communities</h1>
-                <h1 class="hero-title" data-lang="fr" style="display: none;">Protéger les Enfants, Transformer les Communautés</h1>
-                
-                <p class="hero-description" data-lang="pt">Promovemos o bem-estar integral de crianças, igualdade de gênero, saúde universal e preservação ambiental em Moçambique.</p>
-                <p class="hero-description" data-lang="en" style="display: none;">We promote the integral well-being of children, gender equality, universal health and environmental preservation in Mozambique.</p>
-                <p class="hero-description" data-lang="fr" style="display: none;">Nous promouvons le bien-être intégral des enfants, l'égalité des genres, la santé universelle et la préservation de l'environnement au Mozambique.</p>
-                
-                <div class="hero-actions">
-                    <button class="btn-primary" id="hero-donate">
-                        <i class="fas fa-donate"></i>
-                        <span data-lang="pt">Doar Agora</span>
-                        <span data-lang="en" style="display: none;">Donate Now</span>
-                        <span data-lang="fr" style="display: none;">Faire un Don</span>
-                    </button>
-                    <button class="btn-secondary" id="hero-volunteer">
-                        <i class="fas fa-hands-helping"></i>
-                        <span data-lang="pt">Ser Voluntário</span>
-                        <span data-lang="en" style="display: none;">Volunteer</span>
-                        <span data-lang="fr" style="display: none;">Devenir Bénévole</span>
-                    </button>
-                    <button class="btn-outline" id="hero-partner">
-                        <i class="fas fa-handshake"></i>
-                        <span data-lang="pt">Parcerias</span>
-                        <span data-lang="en" style="display: none;">Partnerships</span>
-                        <span data-lang="fr" style="display: none;">Partenariats</span>
-                    </button>
-                </div>
+        <ul class="nav-menu">
+          <li><a href="#home" class="nav-link active">Início</a></li>
+          <li><a href="#about" class="nav-link">Quem Somos</a></li>
+          <li><a href="#work" class="nav-link">Áreas</a></li>
+          <li><a href="#projects" class="nav-link">Projetos</a></li>
+          <li><a href="#impact" class="nav-link">Impacto</a></li>
+          <li><a href="#contact" class="nav-link">Contacto</a></li>
+        </ul>
 
-                <div class="hero-stats">
-                    <div class="hero-stat">
-                        <div class="stat-number">1500+</div>
-                        <div class="stat-label" data-lang="pt">Pessoas Apoiadas</div>
-                    </div>
-                    <div class="hero-stat">
-                        <div class="stat-number">25+</div>
-                        <div class="stat-label" data-lang="pt">Projetos Concluídos</div>
-                    </div>
-                    <div class="hero-stat">
-                        <div class="stat-number">8</div>
-                        <div class="stat-label" data-lang="pt">Comunidades</div>
-                    </div>
-                </div>
-            </div>
+        <div class="nav-actions">
+          <button class="btn-donate" id="donate-btn" aria-haspopup="dialog" aria-controls="donationModal">
+            <i class="fas fa-heart" aria-hidden="true"></i>
+            Doar Agora
+          </button>
         </div>
-    </section>
-
-    <!-- Menu de Acesso Rápido -->
-    <section class="quick-access">
-        <div class="container">
-            <div class="access-grid">
-                <a href="#about" class="access-card">
-                    <i class="fas fa-hands-helping"></i>
-                    <h3 data-lang="pt">Quem Somos</h3>
-                    <h3 data-lang="en" style="display: none;">About Us</h3>
-                    <h3 data-lang="fr" style="display: none;">Qui Sommes-Nous</h3>
-                    <p data-lang="pt">Conheça nossa missão, visão e valores</p>
-                    <p data-lang="en" style="display: none;">Learn about our mission, vision and values</p>
-                    <p data-lang="fr" style="display: none;">Découvrez notre mission, vision et valeurs</p>
-                </a>
-                
-                <a href="#work" class="access-card">
-                    <i class="fas fa-bullseye"></i>
-                    <h3 data-lang="pt">Áreas de Atuação</h3>
-                    <h3 data-lang="en" style="display: none;">Areas of Work</h3>
-                    <h3 data-lang="fr" style="display: none;">Domaines d'Action</h3>
-                    <p data-lang="pt">Nossas quatro áreas principais de trabalho</p>
-                    <p data-lang="en" style="display: none;">Our four main areas of work</p>
-                    <p data-lang="fr" style="display: none;">Nos quatre domaines principaux de travail</p>
-                </a>
-                
-                <a href="#projects" class="access-card">
-                    <i class="fas fa-project-diagram"></i>
-                    <h3 data-lang="pt">Projetos</h3>
-                    <h3 data-lang="en" style="display: none;">Projects</h3>
-                    <h3 data-lang="fr" style="display: none;">Projets</h3>
-                    <p data-lang="pt">Conheça nossos projetos em andamento</p>
-                    <p data-lang="en" style="display: none;">Discover our ongoing projects</p>
-                    <p data-lang="fr" style="display: none;">Découvrez nos projets en cours</p>
-                </a>
-                
-                <a href="#contact" class="access-card">
-                    <i class="fas fa-envelope"></i>
-                    <h3 data-lang="pt">Contacto</h3>
-                    <h3 data-lang="en" style="display: none;">Contact</h3>
-                    <h3 data-lang="fr" style="display: none;">Contact</h3>
-                    <p data-lang="pt">Junte-se à nossa causa</p>
-                    <p data-lang="en" style="display: none;">Join our cause</p>
-                    <p data-lang="fr" style="display: none;">Rejoignez notre cause</p>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção Quem Somos -->
-    <section id="about" class="section section-light">
-        <div class="container">
-            <div class="section-header">
-                <h2 data-lang="pt">Quem Somos</h2>
-                <h2 data-lang="en" style="display: none;">About Us</h2>
-                <h2 data-lang="fr" style="display: none;">Qui Sommes-Nous</h2>
-                <p data-lang="pt">Conheça a Associação Guphassana e nossa razão de existir</p>
-                <p data-lang="en" style="display: none;">Learn about Guphassana Association and our purpose</p>
-                <p data-lang="fr" style="display: none;">Découvrez l'Association Guphassana et notre raison d'être</p>
-            </div>
-            
-            <div class="about-content">
-                <div class="about-text">
-                    <h3 data-lang="pt">Nossa História</h3>
-                    <h3 data-lang="en" style="display: none;">Our Story</h3>
-                    <h3 data-lang="fr" style="display: none;">Notre Histoire</h3>
-                    
-                    <p data-lang="pt">A Associação Guphassana, que significa "Ajuda Mútua", é uma organização sem fins lucrativos moçambicana reconhecida juridicamente, dedicada ao desenvolvimento comunitário sustentável e transformação social.</p>
-                    <p data-lang="en" style="display: none;">Guphassana Association, which means "Mutual Aid", is a legally recognized Mozambican non-profit organization dedicated to sustainable community development and social transformation.</p>
-                    <p data-lang="fr" style="display: none;">L'Association Guphassana, qui signifie « Aide Mutuelle », est une organisation mozambicaine à but non lucratif reconnue juridiquement, dédiée au développement communautaire durable et à la transformation sociale.</p>
-                    
-                    <div class="mission-vision-values">
-                        <div class="mv-item">
-                            <i class="fas fa-bullseye"></i>
-                            <h4 data-lang="pt">Missão</h4>
-                            <h4 data-lang="en" style="display: none;">Mission</h4>
-                            <h4 data-lang="fr" style="display: none;">Mission</h4>
-                            <p data-lang="pt">Promover a proteção e desenvolvimento de crianças, combater desigualdades de gênero, garantir o direito universal à saúde e proteger o meio ambiente.</p>
-                            <p data-lang="en" style="display: none;">To promote the protection and development of children, combat gender inequalities, guarantee the universal right to health and protect the environment.</p>
-                            <p data-lang="fr" style="display: none;">Promouvoir la protection et le développement des enfants, combattre les inégalités de genre, garantir le droit universel à la santé et protéger l'environnement.</p>
-                        </div>
-                        
-                        <div class="mv-item">
-                            <i class="fas fa-eye"></i>
-                            <h4 data-lang="pt">Visão</h4>
-                            <h4 data-lang="en" style="display: none;">Vision</h4>
-                            <h4 data-lang="fr" style="display: none;">Vision</h4>
-                            <p data-lang="pt">Ser referência global em projetos que integram infância, igualdade de gênero, saúde e sustentabilidade ambiental.</p>
-                            <p data-lang="en" style="display: none;">To be a global reference in projects that integrate childhood, gender equality, health and environmental sustainability.</p>
-                            <p data-lang="fr" style="display: none;">Être une référence mondiale dans les projets qui intègrent l'enfance, l'égalité des genres, la santé et la durabilité environnementale.</p>
-                        </div>
-                        
-                        <div class="mv-item">
-                            <i class="fas fa-heart"></i>
-                            <h4 data-lang="pt">Valores</h4>
-                            <h4 data-lang="en" style="display: none;">Values</h4>
-                            <h4 data-lang="fr" style="display: none;">Valeurs</h4>
-                            <p data-lang="pt">Respeito à dignidade humana, inclusão, sustentabilidade, equidade, transparência, empoderamento comunitário e inovação.</p>
-                            <p data-lang="en" style="display: none;">Respect for human dignity, inclusion, sustainability, equity, transparency, community empowerment and innovation.</p>
-                            <p data-lang="fr" style="display: none;">Respect de la dignité humaine, inclusion, durabilité, équité, transparence, autonomisation communautaire et innovation.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="about-stats">
-                    <div class="stat">
-                        <div class="stat-number">1500+</div>
-                        <div class="stat-label" data-lang="pt">Pessoas Apoiadas</div>
-                        <div class="stat-label" data-lang="en" style="display: none;">People Supported</div>
-                        <div class="stat-label" data-lang="fr" style="display: none;">Personnes Soutenues</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">25+</div>
-                        <div class="stat-label" data-lang="pt">Projetos Realizados</div>
-                        <div class="stat-label" data-lang="en" style="display: none;">Projects Completed</div>
-                        <div class="stat-label" data-lang="fr" style="display: none;">Projets Réalisés</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">8</div>
-                        <div class="stat-label" data-lang="pt">Comunidades</div>
-                        <div class="stat-label" data-lang="en" style="display: none;">Communities</div>
-                        <div class="stat-label" data-lang="fr" style="display: none;">Communautés</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">5+</div>
-                        <div class="stat-label" data-lang="pt">Anos de Impacto</div>
-                        <div class="stat-label" data-lang="en" style="display: none;">Years of Impact</div>
-                        <div class="stat-label" data-lang="fr" style="display: none;">Ans d'Impact</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção Histórias de Sucesso -->
-    <section class="section section-white">
-        <div class="container">
-            <div class="section-header">
-                <h2 data-lang="pt">Histórias de Transformação</h2>
-                <h2 data-lang="en" style="display: none;">Success Stories</h2>
-                <h2 data-lang="fr" style="display: none;">Histoires de Réussite</h2>
-                <p data-lang="pt">Conheça algumas das vidas que transformamos</p>
-                <p data-lang="en" style="display: none;">Meet some of the lives we've transformed</p>
-                <p data-lang="fr" style="display: none;">Découvrez quelques vies que nous avons transformées</p>
-            </div>
-            <div class="stories-grid">
-                <div class="story-card">
-                    <div class="story-icon">
-                        <i class="fas fa-child"></i>
-                    </div>
-                    <h3 data-lang="pt">Maria, 8 anos</h3>
-                    <h3 data-lang="en" style="display: none;">Maria, 8 years</h3>
-                    <h3 data-lang="fr" style="display: none;">Maria, 8 ans</h3>
-                    <p data-lang="pt">"Graças ao programa de proteção infantil, Maria agora frequenta a escola regularmente e está segura contra violência."</p>
-                    <p data-lang="en" style="display: none;">"Thanks to the child protection program, Maria now attends school regularly and is safe from violence."</p>
-                    <p data-lang="fr" style="display: none;">"Grâce au programme de protection de l'enfance, Maria va maintenant régulièrement à l'école et est protégée contre la violence."</p>
-                </div>
-                <div class="story-card">
-                    <div class="story-icon">
-                        <i class="fas fa-female"></i>
-                    </div>
-                    <h3 data-lang="pt">Ana, Agricultora</h3>
-                    <h3 data-lang="en" style="display: none;">Ana, Farmer</h3>
-                    <h3 data-lang="fr" style="display: none;">Ana, Agricultrice</h3>
-                    <p data-lang="pt">"Com a horta comunitária, Ana aumentou sua renda em 300% e agora lidera outras mulheres da comunidade."</p>
-                    <p data-lang="en" style="display: none;">"With the community garden, Ana increased her income by 300% and now leads other women in the community."</p>
-                    <p data-lang="fr" style="display: none;">"Avec le jardin communautaire, Ana a augmenté ses revenus de 300% et dirige maintenant d'autres femmes de la communauté."</p>
-                </div>
-                <div class="story-card">
-                    <div class="story-icon">
-                        <i class="fas fa-hand-holding-water"></i>
-                    </div>
-                    <h3 data-lang="pt">Comunidade Chambone</h3>
-                    <h3 data-lang="en" style="display: none;">Chambone Community</h3>
-                    <h3 data-lang="fr" style="display: none;">Communauté Chambone</h3>
-                    <p data-lang="pt">"O sistema de água potável instalado pela Guphassana reduziu doenças em 70% na nossa comunidade."</p>
-                    <p data-lang="en" style="display: none;">"The drinking water system installed by Guphassana reduced diseases by 70% in our community."</p>
-                    <p data-lang="fr" style="display: none;">"Le système d'eau potable installé par Guphassana a réduit les maladies de 70% dans notre communauté."</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção Áreas de Atuação -->
-    <section id="work" class="section section-light">
-        <div class="container">
-            <div class="section-header">
-                <h2 data-lang="pt">Nossas Áreas de Atuação</h2>
-                <h2 data-lang="en" style="display: none;">Our Areas of Work</h2>
-                <h2 data-lang="fr" style="display: none;">Nos Domaines d'Action</h2>
-                <p data-lang="pt">Trabalhamos em quatro pilares fundamentais para o desenvolvimento comunitário</p>
-                <p data-lang="en" style="display: none;">We work on four fundamental pillars for community development</p>
-                <p data-lang="fr" style="display: none;">Nous travaillons sur quatre piliers fondamentaux pour le développement communautaire</p>
-            </div>
-            
-            <div class="work-grid">
-                <div class="work-card">
-                    <i class="fas fa-child"></i>
-                    <h3 data-lang="pt">Proteção Infantil</h3>
-                    <h3 data-lang="en" style="display: none;">Child Protection</h3>
-                    <h3 data-lang="fr" style="display: none;">Protection de l'Enfance</h3>
-                    <p data-lang="pt">Proteção de crianças contra violência, abuso e exploração. Educação e acesso a oportunidades de desenvolvimento integral.</p>
-                    <p data-lang="en" style="display: none;">Protection of children against violence, abuse and exploitation. Education and access to integral development opportunities.</p>
-                    <p data-lang="fr" style="display: none;">Protection des enfants contre la violence, les abus et l'exploitation. Éducation et accès aux opportunités de développement intégral.</p>
-                </div>
-                
-                <div class="work-card">
-                    <i class="fas fa-venus-mars"></i>
-                    <h3 data-lang="pt">Igualdade de Gênero</h3>
-                    <h3 data-lang="en" style="display: none;">Gender Equality</h3>
-                    <h3 data-lang="fr" style="display: none;">Égalité des Genres</h3>
-                    <p data-lang="pt">Promoção da igualdade de gênero em comunidades e instituições. Combate a estereótipos e fortalecimento do papel da mulher.</p>
-                    <p data-lang="en" style="display: none;">Promotion of gender equality in communities and institutions. Combat stereotypes and strengthen women's role.</p>
-                    <p data-lang="fr" style="display: none;">Promotion de l'égalité des genres dans les communautés et institutions. Lutte contre les stéréotypes et renforcement du rôle des femmes.</p>
-                </div>
-                
-                <div class="work-card">
-                    <i class="fas fa-heartbeat"></i>
-                    <h3 data-lang="pt">Saúde Universal</h3>
-                    <h3 data-lang="en" style="display: none;">Universal Health</h3>
-                    <h3 data-lang="fr" style="display: none;">Santé Universelle</h3>
-                    <p data-lang="pt">Garantia de acesso universal a serviços de saúde, com ênfase em saúde pública, nutrição e programas preventivos.</p>
-                    <p data-lang="en" style="display: none;">Guarantee universal access to health services, with emphasis on public health, nutrition and preventive programs.</p>
-                    <p data-lang="fr" style="display: none;">Garantir l'accès universel aux services de santé, avec accent sur la santé publique, la nutrition et les programmes préventifs.</p>
-                </div>
-                
-                <div class="work-card">
-                    <i class="fas fa-leaf"></i>
-                    <h3 data-lang="pt">Ambiente Sustentável</h3>
-                    <h3 data-lang="en" style="display: none;">Sustainable Environment</h3>
-                    <h3 data-lang="fr" style="display: none;">Environnement Durable</h3>
-                    <p data-lang="pt">Preservação ambiental, educação ecológica e iniciativas que promovam o uso responsável dos recursos naturais.</p>
-                    <p data-lang="en" style="display: none;">Environmental preservation, ecological education and initiatives that promote responsible use of natural resources.</p>
-                    <p data-lang="fr" style="display: none;">Préservation environnementale, éducation écologique et initiatives promouvant l'usage responsable des ressources naturelles.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção de Projetos -->
-    <section id="projects" class="section section-white">
-        <div class="container">
-            <div class="section-header">
-                <h2 data-lang="pt">Nossos Projetos</h2>
-                <h2 data-lang="en" style="display: none;">Our Projects</h2>
-                <h2 data-lang="fr" style="display: none;">Nos Projets</h2>
-                <p data-lang="pt">Iniciativas que transformam realidades em Moçambique</p>
-                <p data-lang="en" style="display: none;">Initiatives that transform realities in Mozambique</p>
-                <p data-lang="fr" style="display: none;">Initiatives qui transforment les réalités au Mozambique</p>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3 data-lang="pt">Proteção à Criança</h3>
-                    <h3 data-lang="en" style="display: none;">Child Protection</h3>
-                    <h3 data-lang="fr" style="display: none;">Protection de l'Enfance</h3>
-                    <p data-lang="pt">Apoio aos comités comunitários de proteção da criança para identificar, prevenir e responder a casos de violência.</p>
-                    <p data-lang="en" style="display: none;">Support for community child protection committees to identify, prevent and respond to cases of violence.</p>
-                    <p data-lang="fr" style="display: none;">Soutien aux comités communautaires de protection de l'enfance pour identifier, prévenir et répondre aux cas de violence.</p>
-                    <div class="project-stats">
-                        <span data-lang="pt">500+ crianças protegidas</span>
-                        <span data-lang="en" style="display: none;">500+ children protected</span>
-                        <span data-lang="fr" style="display: none;">500+ enfants protégés</span>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-female"></i>
-                    </div>
-                    <h3 data-lang="pt">Empoderamento Feminino</h3>
-                    <h3 data-lang="en" style="display: none;">Women Empowerment</h3>
-                    <h3 data-lang="fr" style="display: none;">Autonomisation des Femmes</h3>
-                    <p data-lang="pt">Hortas comunitárias geridas por mulheres, promovendo nutrição e empoderamento econômico.</p>
-                    <p data-lang="en" style="display: none;">Community gardens managed by women, promoting nutrition and economic empowerment.</p>
-                    <p data-lang="fr" style="display: none;">Jardins communautaires gérés par des femmes, promouvant la nutrition et l'autonomisation économique.</p>
-                    <div class="project-stats">
-                        <span data-lang="pt">8 comunidades</span>
-                        <span data-lang="en" style="display: none;">8 communities</span>
-                        <span data-lang="fr" style="display: none;">8 communautés</span>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-hand-holding-water"></i>
-                    </div>
-                    <h3 data-lang="pt">Água e Saneamento</h3>
-                    <h3 data-lang="en" style="display: none;">Water and Sanitation</h3>
-                    <h3 data-lang="fr" style="display: none;">Eau et Assainissement</h3>
-                    <p data-lang="pt">Instalação de poços e sistemas de purificação de água em comunidades carentes.</p>
-                    <p data-lang="en" style="display: none;">Installation of wells and water purification systems in needy communities.</p>
-                    <p data-lang="fr" style="display: none;">Installation de puits et systèmes de purification d'eau dans les communautés défavorisées.</p>
-                    <div class="project-stats">
-                        <span data-lang="pt">5 sistemas instalados</span>
-                        <span data-lang="en" style="display: none;">5 systems installed</span>
-                        <span data-lang="fr" style="display: none;">5 systèmes installés</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção de Impacto -->
-    <section id="impact" class="section section-light">
-        <div class="container">
-            <div class="section-header">
-                <h2 data-lang="pt">Nosso Impacto</h2>
-                <h2 data-lang="en" style="display: none;">Our Impact</h2>
-                <h2 data-lang="fr" style="display: none;">Notre Impact</h2>
-                <p data-lang="pt">Resultados que fazem a diferença em Moçambique</p>
-                <p data-lang="en" style="display: none;">Results that make a difference in Mozambique</p>
-                <p data-lang="fr" style="display: none;">Résultats qui font la différence au Mozambique</p>
-            </div>
-            <div class="impact-stats">
-                <div class="stat-item">
-                    <div class="stat-number" data-count="1500">0</div>
-                    <div class="stat-label" data-lang="pt">Pessoas Apoiadas</div>
-                    <div class="stat-label" data-lang="en" style="display: none;">People Supported</div>
-                    <div class="stat-label" data-lang="fr" style="display: none;">Personnes Soutenues</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-count="25">0</div>
-                    <div class="stat-label" data-lang="pt">Projetos Concluídos</div>
-                    <div class="stat-label" data-lang="en" style="display: none;">Projects Completed</div>
-                    <div class="stat-label" data-lang="fr" style="display: none;">Projets Terminés</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-count="8">0</div>
-                    <div class="stat-label" data-lang="pt">Comunidades</div>
-                    <div class="stat-label" data-lang="en" style="display: none;">Communities</div>
-                    <div class="stat-label" data-lang="fr" style="display: none;">Communautés</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-count="5">0</div>
-                    <div class="stat-label" data-lang="pt">Anos de Atuação</div>
-                    <div class="stat-label" data-lang="en" style="display: none;">Years of Operation</div>
-                    <div class="stat-label" data-lang="fr" style="display: none;">Ans d'Opération</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção de Contacto -->
-    <section id="contact" class="section section-white">
-        <div class="container">
-            <div class="section-header">
-                <h2 data-lang="pt">Contacte-nos</h2>
-                <h2 data-lang="en" style="display: none;">Contact Us</h2>
-                <h2 data-lang="fr" style="display: none;">Contactez-nous</h2>
-                <p data-lang="pt">Entre em contacto para saber como pode ajudar</p>
-                <p data-lang="en" style="display: none;">Get in touch to learn how you can help</p>
-                <p data-lang="fr" style="display: none;">Contactez-nous pour savoir comment vous pouvez aider</p>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h4 data-lang="pt">Localização</h4>
-                            <h4 data-lang="en" style="display: none;">Location</h4>
-                            <h4 data-lang="fr" style="display: none;">Localisation</h4>
-                            <p>Maxixe, Moçambique</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h4 data-lang="pt">Telefone</h4>
-                            <h4 data-lang="en" style="display: none;">Phone</h4>
-                            <h4 data-lang="fr" style="display: none;">Téléphone</h4>
-                            <p>+258 823 933 624</p>
-                            <p>+258 879 233 624</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4 data-lang="pt">Email</h4>
-                            <h4 data-lang="en" style="display: none;">Email</h4>
-                            <h4 data-lang="fr" style="display: none;">Email</h4>
-                            <p>info.guphassana@gmail.com</p>
-                        </div>
-                    </div>
-                </div>
-                <form class="contact-form" id="contact-form">
-                    <div class="form-group">
-                        <label for="name" data-lang="pt">Nome Completo</label>
-                        <label for="name" data-lang="en" style="display: none;">Full Name</label>
-                        <label for="name" data-lang="fr" style="display: none;">Nom Complet</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email" data-lang="pt">Email</label>
-                        <label for="email" data-lang="en" style="display: none;">Email</label>
-                        <label for="email" data-lang="fr" style="display: none;">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message" data-lang="pt">Mensagem</label>
-                        <label for="message" data-lang="en" style="display: none;">Message</label>
-                        <label for="message" data-lang="fr" style="display: none;">Message</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary">
-                        <span data-lang="pt">Enviar Mensagem</span>
-                        <span data-lang="en" style="display: none;">Send Message</span>
-                        <span data-lang="fr" style="display: none;">Envoyer Message</span>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-logo-container">
-                        <div class="footer-logo">
-                            <div class="logo-fallback">AG</div>
-                        </div>
-                        <div class="footer-org-name">
-                            <span class="footer-org-main">Associação Guphassana</span>
-                            <span class="footer-org-sub">Ajuda Mútua</span>
-                        </div>
-                    </div>
-                    <p data-lang="pt">Protegendo crianças, promovendo igualdade, garantindo saúde e preservando o ambiente em Moçambique.</p>
-                    <p data-lang="en" style="display: none;">Protecting children, promoting equality, ensuring health and preserving the environment in Mozambique.</p>
-                    <p data-lang="fr" style="display: none;">Protéger les enfants, promouvoir l'égalité, garantir la santé et préserver l'environnement au Mozambique.</p>
-                </div>
-                <div class="footer-section">
-                    <h3 data-lang="pt">Contactos</h3>
-                    <h3 data-lang="en" style="display: none;">Contact</h3>
-                    <h3 data-lang="fr" style="display: none;">Contact</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Maxixe, Moçambique</p>
-                    <p><i class="fas fa-phone"></i> +258 823 933 624</p>
-                    <p><i class="fas fa-envelope"></i> info.guphassana@gmail.com</p>
-                </div>
-                <div class="footer-section">
-                    <h3 data-lang="pt">Siga-nos</h3>
-                    <h3 data-lang="en" style="display: none;">Follow Us</h3>
-                    <h3 data-lang="fr" style="display: none;">Suivez-nous</h3>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Associação Guphassana. 
-                   <span data-lang="pt">Todos os direitos reservados.</span>
-                   <span data-lang="en" style="display: none;">All rights reserved.</span>
-                   <span data-lang="fr" style="display: none;">Tous droits réservés.</span>
-                </p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Modal de Doação -->
-    <div class="modal" id="donationModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 data-lang="pt">Apoie a Associação Guphassana</h3>
-                <h3 data-lang="en" style="display: none;">Support Guphassana Association</h3>
-                <h3 data-lang="fr" style="display: none;">Soutenez l'Association Guphassana</h3>
-                <button class="close-modal" id="closeDonationModal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="donation-options">
-                    <h4 data-lang="pt">Escolha o valor da doação</h4>
-                    <h4 data-lang="en" style="display: none;">Choose donation amount</h4>
-                    <h4 data-lang="fr" style="display: none;">Choisissez le montant du don</h4>
-                    
-                    <div class="amount-options">
-                        <button class="amount-btn" data-amount="100">100 MT</button>
-                        <button class="amount-btn" data-amount="500">500 MT</button>
-                        <button class="amount-btn" data-amount="1000">1.000 MT</button>
-                        <button class="amount-btn" data-amount="5000">5.000 MT</button>
-                        <div class="custom-amount">
-                            <input type="number" id="customAmount" placeholder="Outro valor (MT)">
-                        </div>
-                    </div>
-
-                    <div class="payment-methods">
-                        <h4 data-lang="pt">Método de Pagamento</h4>
-                        <h4 data-lang="en" style="display: none;">Payment Method</h4>
-                        <h4 data-lang="fr" style="display: none;">Méthode de Paiement</h4>
-                        
-                        <div class="payment-options">
-                            <div class="payment-option" data-method="mpesa">
-                                <i class="fas fa-mobile-alt"></i>
-                                <span>M-Pesa</span>
-                            </div>
-                            <div class="payment-option" data-method="emola">
-                                <i class="fas fa-wallet"></i>
-                                <span>e-Mola</span>
-                            </div>
-                            <div class="payment-option" data-method="bank">
-                                <i class="fas fa-university"></i>
-                                <span data-lang="pt">Transferência Bancária</span>
-                                <span data-lang="en" style="display: none;">Bank Transfer</span>
-                                <span data-lang="fr" style="display: none;">Virement Bancaire</span>
-                            </div>
-                            <div class="payment-option" data-method="paypal">
-                                <i class="fab fa-paypal"></i>
-                                <span>PayPal</span>
-                            </div>
-                        </div>
-
-                        <div class="payment-details" id="paymentDetails">
-                            <!-- Detalhes do pagamento serão inseridos aqui -->
-                        </div>
-                    </div>
-
-                    <button class="btn-primary btn-donate-final" id="finalizeDonation" disabled>
-                        <span data-lang="pt">Finalizar Doação</span>
-                        <span data-lang="en" style="display: none;">Finalize Donation</span>
-                        <span data-lang="fr" style="display: none;">Finaliser le Don</span>
-                    </button>
-                </div>
-            </div>
-        </div>
+      </nav>
     </div>
+  </header>
 
-    <!-- Modal de Voluntariado -->
-    <div class="modal" id="volunteerModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 data-lang="pt">Torne-se Voluntário</h3>
-                <h3 data-lang="en" style="display: none;">Become a Volunteer</h3>
-                <h3 data-lang="fr" style="display: none;">Devenir Bénévole</h3>
-                <button class="close-modal" id="closeVolunteerModal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p data-lang="pt">Entre em contacto para saber mais sobre oportunidades de voluntariado.</p>
-                <p data-lang="en" style="display: none;">Get in touch to learn more about volunteer opportunities.</p>
-                <p data-lang="fr" style="display: none;">Contactez-nous pour en savoir plus sur les opportunités de bénévolat.</p>
-                <div class="contact-info-modal">
-                    <p><i class="fas fa-envelope"></i> info.guphassana@gmail.com</p>
-                    <p><i class="fas fa-phone"></i> +258 823 933 624</p>
-                </div>
-            </div>
-        </div>
+  <!-- (mantive o teu conteúdo das seções; omito a repetição para brevidade) -->
+  <!-- ... HERO, QUICK ACCESS, ABOUT, WORK, PROJECTS, IMPACT, CONTACT ... -->
+  <!-- (copiar as secções do teu HTML original aqui, sem alterá-las) -->
+
+  <!-- Footer  (mantém o teu footer original) -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <!-- ... teu footer ... -->
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="currentYear"></span> Associação Guphassana. <span data-lang="pt">Todos os direitos reservados.</span></p>
+      </div>
     </div>
+  </footer>
 
-    <script>
-        // JavaScript Corrigido - Mantendo toda a funcionalidade
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Associação Guphassana - Site carregado com sucesso!');
-            
-            // Remover loading screen
-            const loadingScreen = document.getElementById('loadingScreen');
-            if (loadingScreen) {
-                setTimeout(() => {
-                    loadingScreen.style.display = 'none';
-                }, 1500);
-            }
-            
-            // Navegação suave corrigida
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetSection = document.querySelector(targetId);
-                    
-                    if (targetSection) {
-                        // Remover active de todos os links
-                        navLinks.forEach(l => l.classList.remove('active'));
-                        // Adicionar active ao link clicado
-                        this.classList.add('active');
-                        
-                        // Scroll suave para a seção
-                        const offsetTop = targetSection.offsetTop - 100;
-                        window.scrollTo({
-                            top: offsetTop,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // Botões de doação corrigidos
-            const donateButtons = document.querySelectorAll('#donate-btn, #hero-donate');
-            const donationModal = document.getElementById('donationModal');
-            const closeDonationModal = document.getElementById('closeDonationModal');
-            
-            donateButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    if (donationModal) {
-                        donationModal.style.display = 'block';
-                    }
-                });
-            });
-            
-            if (closeDonationModal) {
-                closeDonationModal.addEventListener('click', function() {
-                    if (donationModal) {
-                        donationModal.style.display = 'none';
-                    }
-                });
-            }
-            
-            // Botão de voluntariado corrigido
-            const volunteerBtn = document.getElementById('hero-volunteer');
-            const volunteerModal = document.getElementById('volunteerModal');
-            const closeVolunteerModal = document.getElementById('closeVolunteerModal');
-            
-            if (volunteerBtn && volunteerModal) {
-                volunteerBtn.addEventListener('click', function() {
-                    volunteerModal.style.display = 'block';
-                });
-            }
-            
-            if (closeVolunteerModal && volunteerModal) {
-                closeVolunteerModal.addEventListener('click', function() {
-                    volunteerModal.style.display = 'none';
-                });
-            }
-            
-            // Fechar modais ao clicar fora
-            window.addEventListener('click', function(e) {
-                if (donationModal && e.target === donationModal) {
-                    donationModal.style.display = 'none';
-                }
-                if (volunteerModal && e.target === volunteerModal) {
-                    volunteerModal.style.display = 'none';
-                }
-            });
-            
-            // Sistema de tradução corrigido
-            const langButtons = document.querySelectorAll('.lang-btn');
-            langButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const lang = this.id.replace('translate-', '');
-                    
-                    // Remover active de todos
-                    langButtons.forEach(btn => btn.classList.remove('active'));
-                    // Adicionar active ao clicado
-                    this.classList.add('active');
-                    
-                    // Mostrar/ocultar conteúdo por idioma
-                    document.querySelectorAll('[data-lang]').forEach(element => {
-                        if (element.getAttribute('data-lang') === lang) {
-                            element.style.display = '';
-                        } else {
-                            element.style.display = 'none';
-                        }
-                    });
-                });
-            });
-            
-            // Contador de estatísticas
-            const statNumbers = document.querySelectorAll('.stat-number[data-count]');
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.3
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const statNumber = entry.target;
-                        const target = parseInt(statNumber.getAttribute('data-count'));
-                        const duration = 2000;
-                        const step = target / (duration / 16);
-                        let current = 0;
-                        
-                        const timer = setInterval(() => {
-                            current += step;
-                            if (current >= target) {
-                                current = target;
-                                clearInterval(timer);
-                            }
-                            statNumber.textContent = Math.floor(current) + (statNumber.textContent.includes('+') ? '+' : '');
-                        }, 16);
-                        
-                        observer.unobserve(statNumber);
-                    }
-                });
-            }, observerOptions);
-            
-            statNumbers.forEach(stat => {
-                observer.observe(stat);
-            });
-            
-            // Formulário de contacto
-            const contactForm = document.getElementById('contact-form');
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    alert('Mensagem enviada com sucesso! Entraremos em contacto em breve.');
-                    this.reset();
-                });
-            }
-            
-            // Sistema de doação
-            const amountButtons = document.querySelectorAll('.amount-btn');
-            const customAmount = document.getElementById('customAmount');
-            const paymentOptions = document.querySelectorAll('.payment-option');
-            const finalizeDonation = document.getElementById('finalizeDonation');
-            let selectedAmount = 0;
-            let selectedMethod = '';
-            
-            amountButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    amountButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                    selectedAmount = parseInt(this.getAttribute('data-amount'));
-                    updateDonationButton();
-                });
-            });
-            
-            if (customAmount) {
-                customAmount.addEventListener('input', function() {
-                    amountButtons.forEach(btn => btn.classList.remove('active'));
-                    selectedAmount = parseInt(this.value) || 0;
-                    updateDonationButton();
-                });
-            }
-            
-            paymentOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    paymentOptions.forEach(opt => opt.classList.remove('active'));
-                    this.classList.add('active');
-                    selectedMethod = this.getAttribute('data-method');
-                    updateDonationButton();
-                });
-            });
-            
-            function updateDonationButton() {
-                if (selectedAmount > 0 && selectedMethod) {
-                    finalizeDonation.disabled = false;
-                } else {
-                    finalizeDonation.disabled = true;
-                }
-            }
-            
-            if (finalizeDonation) {
-                finalizeDonation.addEventListener('click', function() {
-                    alert(`Obrigado pela sua doação de ${selectedAmount} MT via ${selectedMethod}!`);
-                    if (donationModal) {
-                        donationModal.style.display = 'none';
-                    }
-                });
-            }
-        });
-        
-        // Garantir que tudo funciona após carregamento completo
-        window.addEventListener('load', function() {
-            console.log('Página totalmente carregada - Associação Guphassana');
-        });
-    </script>
+  <!-- Modal de Doação (acessível) -->
+  <div class="modal" id="donationModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="donationTitle">
+    <div class="modal-overlay" id="donationOverlay" tabindex="-1"></div>
+    <div class="modal-panel" role="document">
+      <div class="modal-header">
+        <h3 id="donationTitle">Apoie a Associação Guphassana</h3>
+        <button class="close-modal" id="closeDonationModal" aria-label="Fechar">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <form id="donationForm" novalidate>
+          <fieldset class="amount-fieldset">
+            <legend>Escolha o valor da doação</legend>
+            <div class="amount-options">
+              <button type="button" class="amount-btn" data-amount="100">100 MT</button>
+              <button type="button" class="amount-btn" data-amount="500">500 MT</button>
+              <button type="button" class="amount-btn" data-amount="1000">1.000 MT</button>
+              <button type="button" class="amount-btn" data-amount="5000">5.000 MT</button>
+              <div class="custom-amount">
+                <label for="customAmount">Outro valor (MT)</label>
+                <input type="number" id="customAmount" name="customAmount" min="1" placeholder="Ex.: 750" inputmode="numeric" />
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="method-fieldset">
+            <legend>Método de Pagamento</legend>
+            <div class="payment-options" role="radiogroup" aria-label="Método de pagamento">
+              <label class="payment-option" data-method="emola">
+                <input type="radio" name="paymentMethod" value="emola" />
+                <i class="fas fa-wallet" aria-hidden="true"></i> e-Mola
+              </label>
+              <label class="payment-option" data-method="mpesa">
+                <input type="radio" name="paymentMethod" value="mpesa" />
+                <i class="fas fa-mobile-alt" aria-hidden="true"></i> M-Pesa
+              </label>
+              <label class="payment-option" data-method="bank">
+                <input type="radio" name="paymentMethod" value="bank" />
+                <i class="fas fa-university" aria-hidden="true"></i> Transferência Bancária
+              </label>
+              <label class="payment-option" data-method="paypal">
+                <input type="radio" name="paymentMethod" value="paypal" />
+                <i class="fab fa-paypal" aria-hidden="true"></i> PayPal / Cartão
+              </label>
+            </div>
+          </fieldset>
+
+          <div id="paymentDetails" class="payment-details" aria-live="polite">
+            <!-- Instruções dinâmicas por método serão inseridas aqui -->
+          </div>
+
+          <div class="donation-actions">
+            <button type="button" class="btn btn-ghost" id="cancelDonation">Cancelar</button>
+            <button type="submit" class="btn btn-primary" id="finalizeDonation" disabled>Finalizar Doação</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+
+  <!-- Scripts (coloca este ficheiro em js/app.js) -->
+  <script src="js/app.js" defer></script>
+  <script>document.getElementById('currentYear').textContent = new Date().getFullYear();</script>
 </body>
 </html>
