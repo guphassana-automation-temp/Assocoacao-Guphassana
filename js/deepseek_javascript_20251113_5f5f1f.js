@@ -1,4 +1,4 @@
-// ===== ASSOCIAÇÃO GUPHASSANA - JAVASCRIPT COMPLETO =====
+// ===== ASSOCIAÇÃO GUPHASSANA =====
 
 class GuphassanaApp {
     constructor() {
