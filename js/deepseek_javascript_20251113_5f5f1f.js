@@ -1,163 +1,130 @@
-// ===== ASSOCIAÇÃO GUPHASSANA =====
-
-class GuphassanaApp {
-    constructor() {
-        this.currentLang = 'pt';
-        this.selectedAmount = 0;
-        this.selectedMethod = '';
-        this.init();
-    }
-
-    init() {
-        this.setupEventListeners();
-        this.setupIntersectionObserver();
-        this.setupScrollEffects();
-        this.initializeModals();
-        console.log('🏁 Associação Guphassana - Aplicação inicializada');
-    }
-
-    // ===== CONFIGURAÇÃO DE EVENT LISTENERS =====
-    setupEventListeners() {
-        this.handleLoadingScreen();
-        this.setupNavigation();
-        this.setupTranslation();
-        this.setupModalHandlers();
-        this.setupFormHandlers();
-        this.setupDonationSystem();
-        this.setupCounters();
-    }
-
-    // ===== LOADING SCREEN =====
-    handleLoadingScreen() {
-        const loadingScreen = document.getElementById('loadingScreen');
-        if (loadingScreen) {
-            window.addEventListener('load', () => {
-                setTimeout(() => {
-                    loadingScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        loadingScreen.style.display = 'none';
-                        document.body.style.overflow = 'auto';
-                    }, 500);
-                }, 1500);
-            });
-
-            // Fallback se a página demorar muito
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🌍 Associação Guphassana - Site inicializado');
+    
+    // Gerenciamento da Loading Screen
+    const loadingScreen = document.getElementById('loadingScreen');
+    if (loadingScreen) {
+        window.addEventListener('load', () => {
             setTimeout(() => {
-                if (loadingScreen.style.display !== 'none') {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
                     loadingScreen.style.display = 'none';
                     document.body.style.overflow = 'auto';
-                }
-            }, 5000);
-        }
-    }
-
-    // ===== NAVEGAÇÃO =====
-    setupNavigation() {
-        const navLinks = document.querySelectorAll('.nav-link');
-        const header = document.querySelector('.main-header');
-
-        // Navegação suave
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href');
-                this.scrollToSection(targetId);
-                
-                // Atualizar link ativo
-                navLinks.forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
-            });
+                }, 500);
+            }, 1000);
         });
 
-        // Header scroll effect
-        let lastScroll = 0;
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            
-            if (currentScroll > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
-                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
-                
-                if (currentScroll > lastScroll && currentScroll > 200) {
-                    header.style.transform = 'translateY(-100%)';
-                } else {
-                    header.style.transform = 'translateY(0)';
-                }
-            } else {
-                header.style.background = 'var(--bg-white)';
-                header.style.backdropFilter = 'none';
-                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
-                header.style.transform = 'translateY(0)';
+        // Fallback caso a página demore muito para carregar
+        setTimeout(() => {
+            if (loadingScreen.style.display !== 'none') {
+                loadingScreen.style.display = 'none';
+                document.body.style.overflow = 'auto';
             }
-            
-            lastScroll = currentScroll;
-        });
-
-        this.setupActiveNavigation();
+        }, 5000);
     }
 
-    scrollToSection(sectionId) {
+    // Sistema de Navegação
+    const navLinks = document.querySelectorAll('.nav-link');
+    const header = document.querySelector('.main-header');
+
+    // Navegação suave
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
+            scrollToSection(targetId, link);
+        });
+    });
+
+    function scrollToSection(sectionId, clickedLink = null) {
         const targetSection = document.querySelector(sectionId);
         if (targetSection) {
-            const headerHeight = document.querySelector('.main-header').offsetHeight;
+            const headerHeight = header.offsetHeight;
             const offsetTop = targetSection.offsetTop - headerHeight - 20;
             
             window.scrollTo({
                 top: offsetTop,
                 behavior: 'smooth'
             });
+            
+            if (clickedLink) {
+                navLinks.forEach(l => l.classList.remove('active'));
+                clickedLink.classList.add('active');
+            }
         }
     }
 
-    setupActiveNavigation() {
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-link');
+    // Efeito de header ao scroll
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll > 100) {
+            header.style.background = 'rgba(255, 255, 255, 0.95)';
+            header.style.backdropFilter = 'blur(10px)';
+            header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+            
+            if (currentScroll > lastScroll && currentScroll > 200) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+        } else {
+            header.style.background = 'var(--bg-white)';
+            header.style.backdropFilter = 'none';
+            header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            header.style.transform = 'translateY(0)';
+        }
+        
+        lastScroll = currentScroll;
+    });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.getAttribute('id');
-                    navLinks.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === `#${id}`) {
-                            link.classList.add('active');
-                        }
-                    });
-                }
-            });
-        }, {
-            threshold: 0.3,
-            rootMargin: '-100px 0px -100px 0px'
-        });
-
-        sections.forEach(section => {
-            if (section.id) {
-                observer.observe(section);
+    // Observer para navegação ativa
+    const sections = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('active');
+                    }
+                });
             }
         });
-    }
+    }, {
+        threshold: 0.3,
+        rootMargin: '-100px 0px -100px 0px'
+    });
 
-    // ===== SISTEMA DE TRADUÇÃO =====
-    setupTranslation() {
-        const langButtons = document.querySelectorAll('.lang-btn');
-        
-        langButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const lang = button.id.replace('translate-', '');
-                this.switchLanguage(lang);
-                
-                // Atualizar botões ativos
-                langButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-            });
+    sections.forEach(section => {
+        if (section.id) {
+            observer.observe(section);
+        }
+    });
+
+    // Sistema de Tradução
+    const langButtons = document.querySelectorAll('.lang-btn');
+    let currentLang = 'pt';
+    
+    langButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const lang = button.id.replace('translate-', '');
+            switchLanguage(lang, button);
         });
-    }
+    });
 
-    switchLanguage(lang) {
-        this.currentLang = lang;
+    function switchLanguage(lang, clickedButton = null) {
+        currentLang = lang;
         
-        // Atualizar todos os elementos com data-lang
+        // Atualizar botões ativos
+        if (clickedButton) {
+            langButtons.forEach(btn => btn.classList.remove('active'));
+            clickedButton.classList.add('active');
+        }
+        
+        // Atualizar conteúdo por idioma
         document.querySelectorAll('[data-lang]').forEach(element => {
             if (element.getAttribute('data-lang') === lang) {
                 element.style.display = '';
@@ -166,7 +133,7 @@ class GuphassanaApp {
             }
         });
 
-        // Atualizar atributo lang do HTML
+        // Atualizar atributos de acessibilidade
         document.documentElement.lang = lang;
 
         // Atualizar título da página
@@ -181,114 +148,225 @@ class GuphassanaApp {
         console.log(`🌐 Idioma alterado para: ${lang}`);
     }
 
-    // ===== SISTEMA DE MODAIS =====
-    initializeModals() {
-        this.modals = {
-            donation: document.getElementById('donationModal'),
-            volunteer: document.getElementById('volunteerModal')
-        };
-    }
+    // Sistema de Modais
+    const donationModal = document.getElementById('donationModal');
+    const volunteerModal = document.getElementById('volunteerModal');
 
-    setupModalHandlers() {
-        // Botões de abrir modal
-        document.getElementById('donate-btn')?.addEventListener('click', () => this.openModal('donation'));
-        document.getElementById('hero-donate')?.addEventListener('click', () => this.openModal('donation'));
-        document.getElementById('hero-volunteer')?.addEventListener('click', () => this.openModal('volunteer'));
+    // Abrir modais
+    document.getElementById('donate-btn')?.addEventListener('click', () => openModal(donationModal));
+    document.getElementById('hero-donate')?.addEventListener('click', () => openModal(donationModal));
+    document.getElementById('hero-volunteer')?.addEventListener('click', () => openModal(volunteerModal));
 
-        // Botões de fechar modal
-        document.getElementById('closeDonationModal')?.addEventListener('click', () => this.closeModal('donation'));
-        document.getElementById('closeVolunteerModal')?.addEventListener('click', () => this.closeModal('volunteer'));
+    // Fechar modais
+    document.getElementById('closeDonationModal')?.addEventListener('click', () => closeModal(donationModal));
+    document.getElementById('closeVolunteerModal')?.addEventListener('click', () => closeModal(volunteerModal));
 
-        // Fechar modal ao clicar fora
-        Object.keys(this.modals).forEach(modalKey => {
-            this.modals[modalKey]?.addEventListener('click', (e) => {
-                if (e.target === this.modals[modalKey]) {
-                    this.closeModal(modalKey);
-                }
-            });
+    // Fechar modal ao clicar fora
+    [donationModal, volunteerModal].forEach(modal => {
+        modal?.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal(modal);
         });
+    });
 
-        // Fechar modal com ESC
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                Object.keys(this.modals).forEach(modalKey => {
-                    this.closeModal(modalKey);
-                });
-            }
-        });
-    }
+    // Fechar modal com ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeModal(donationModal);
+            closeModal(volunteerModal);
+        }
+    });
 
-    openModal(modalKey) {
-        const modal = this.modals[modalKey];
+    function openModal(modal) {
         if (modal) {
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
             
-            // Reset do modal de doação
-            if (modalKey === 'donation') {
-                this.resetDonationForm();
+            // Reset do modal de doação ao abrir
+            if (modal === donationModal) {
+                resetDonationForm();
             }
         }
     }
 
-    closeModal(modalKey) {
-        const modal = this.modals[modalKey];
+    function closeModal(modal) {
         if (modal) {
             modal.style.display = 'none';
             document.body.style.overflow = '';
         }
     }
 
-    // ===== SISTEMA DE DOAÇÃO =====
-    setupDonationSystem() {
-        this.selectedAmount = 0;
-        this.selectedMethod = '';
-
-        const amountButtons = document.querySelectorAll('.amount-btn');
-        const customAmount = document.getElementById('customAmount');
-        const paymentOptions = document.querySelectorAll('.payment-option');
-        const finalizeBtn = document.getElementById('finalizeDonation');
-
-        // Botões de valor
-        amountButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                amountButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                this.selectedAmount = parseInt(button.getAttribute('data-amount'));
-                if (customAmount) customAmount.value = '';
-                this.updateDonationButton();
-            });
+    // Sistema de Formulário de Contacto
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            handleContactForm(contactForm);
         });
-
-        // Valor customizado
-        if (customAmount) {
-            customAmount.addEventListener('input', () => {
-                amountButtons.forEach(btn => btn.classList.remove('active'));
-                this.selectedAmount = parseInt(customAmount.value) || 0;
-                this.updateDonationButton();
-            });
-        }
-
-        // Métodos de pagamento
-        paymentOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                paymentOptions.forEach(opt => opt.classList.remove('active'));
-                option.classList.add('active');
-                this.selectedMethod = option.getAttribute('data-method');
-                this.showPaymentDetails(this.selectedMethod);
-                this.updateDonationButton();
-            });
-        });
-
-        // Finalizar doação
-        if (finalizeBtn) {
-            finalizeBtn.addEventListener('click', () => this.processDonation());
-        }
     }
 
-    showPaymentDetails(method) {
-        const detailsContainer = document.getElementById('paymentDetails');
-        if (!detailsContainer) return;
+    function handleContactForm(form) {
+        const formData = new FormData(form);
+        const name = formData.get('name').trim();
+        const email = formData.get('email').trim();
+        const message = formData.get('message').trim();
+
+        // Validação
+        if (!name || !email || !message) {
+            showNotification('Por favor, preencha todos os campos.', 'error');
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            showNotification('Por favor, insira um email válido.', 'error');
+            return;
+        }
+
+        if (message.length < 10) {
+            showNotification('A mensagem deve ter pelo menos 10 caracteres.', 'error');
+            return;
+        }
+
+        // Simular envio
+        showNotification('Mensagem enviada com sucesso! Entraremos em contacto em breve.', 'success');
+        form.reset();
+        
+        console.log(`📧 Formulário enviado: ${name} (${email})`);
+    }
+
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    // Sistema de Notificações
+    function showNotification(message, type = 'info') {
+        // Remover notificações existentes
+        document.querySelectorAll('.notification').forEach(notification => {
+            notification.remove();
+        });
+
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.setAttribute('role', 'alert');
+        notification.setAttribute('aria-live', 'polite');
+        
+        notification.innerHTML = `
+            <div class="notification-content">
+                <span>${message}</span>
+                <button class="notification-close" aria-label="Fechar notificação">&times;</button>
+            </div>
+        `;
+
+        const styles = {
+            success: '#27ae60',
+            error: '#e74c3c',
+            info: '#3498db'
+        };
+
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${styles[type] || styles.info};
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 3000;
+            max-width: 400px;
+            animation: slideInRight 0.3s ease;
+        `;
+
+        // Adicionar animação CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        document.body.appendChild(notification);
+
+        // Auto-remover após 5 segundos
+        const autoRemove = setTimeout(() => {
+            if (notification.parentNode) {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }
+        }, 5000);
+
+        // Fechar manualmente
+        notification.querySelector('.notification-close').addEventListener('click', () => {
+            clearTimeout(autoRemove);
+            if (notification.parentNode) {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }
+        });
+    }
+
+    // Sistema de Doações
+    let selectedAmount = 0;
+    let selectedMethod = '';
+
+    const amountButtons = document.querySelectorAll('.amount-btn');
+    const customAmount = document.getElementById('customAmount');
+    const paymentOptions = document.querySelectorAll('.payment-option');
+    const finalizeBtn = document.getElementById('finalizeDonation');
+    const paymentDetails = document.getElementById('paymentDetails');
+
+    // Configurar botões de valor
+    amountButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            amountButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            selectedAmount = parseInt(button.getAttribute('data-amount'));
+            if (customAmount) customAmount.value = '';
+            updateDonationButton();
+        });
+    });
+
+    // Valor customizado
+    if (customAmount) {
+        customAmount.addEventListener('input', () => {
+            amountButtons.forEach(btn => btn.classList.remove('active'));
+            selectedAmount = parseInt(customAmount.value) || 0;
+            updateDonationButton();
+        });
+    }
+
+    // Métodos de pagamento
+    paymentOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            paymentOptions.forEach(opt => opt.classList.remove('active'));
+            option.classList.add('active');
+            selectedMethod = option.getAttribute('data-method');
+            showPaymentDetails(selectedMethod);
+            updateDonationButton();
+        });
+    });
+
+    // Finalizar doação
+    if (finalizeBtn) {
+        finalizeBtn.addEventListener('click', processDonation);
+    }
+
+    function showPaymentDetails(method) {
+        if (!paymentDetails) return;
 
         const details = {
             mpesa: `
@@ -317,190 +395,101 @@ class GuphassanaApp {
             `
         };
 
-        detailsContainer.innerHTML = details[method] || '<p>Selecione um método de pagamento</p>';
+        paymentDetails.innerHTML = details[method] || '<p>Selecione um método de pagamento</p>';
     }
 
-    updateDonationButton() {
-        const finalizeBtn = document.getElementById('finalizeDonation');
+    function updateDonationButton() {
         if (!finalizeBtn) return;
 
-        if (this.selectedAmount > 0 && this.selectedMethod) {
+        if (selectedAmount > 0 && selectedMethod) {
             finalizeBtn.disabled = false;
             
-            // Atualizar texto do botão com o valor
-            const amountText = this.selectedAmount.toLocaleString('pt-MZ') + ' MT';
-            const methodText = this.selectedMethod.toUpperCase();
+            // Atualizar texto do botão com informações
+            const amountText = selectedAmount.toLocaleString('pt-MZ') + ' MT';
+            const methodText = selectedMethod.toUpperCase();
             
-            finalizeBtn.innerHTML = `
-                <span data-lang="pt">Doar ${amountText} via ${methodText}</span>
-                <span data-lang="en" style="display: none;">Donate ${amountText} via ${methodText}</span>
-                <span data-lang="fr" style="display: none;">Donner ${amountText} via ${methodText}</span>
-            `;
-            
-            // Atualizar visibilidade dos textos de idioma
-            this.updateLanguageVisibility();
+            // Atualizar textos em todos os idiomas
+            ['pt', 'en', 'fr'].forEach(lang => {
+                const elements = finalizeBtn.querySelectorAll(`[data-lang="${lang}"]`);
+                if (elements.length > 0) {
+                    const text = {
+                        'pt': `Doar ${amountText} via ${methodText}`,
+                        'en': `Donate ${amountText} via ${methodText}`,
+                        'fr': `Donner ${amountText} via ${methodText}`
+                    };
+                    elements[0].textContent = text[lang];
+                }
+            });
         } else {
             finalizeBtn.disabled = true;
-            finalizeBtn.innerHTML = `
-                <span data-lang="pt">Finalizar Doação</span>
-                <span data-lang="en" style="display: none;">Finalize Donation</span>
-                <span data-lang="fr" style="display: none;">Finaliser le Don</span>
-            `;
+            // Restaurar texto original
+            ['pt', 'en', 'fr'].forEach(lang => {
+                const elements = finalizeBtn.querySelectorAll(`[data-lang="${lang}"]`);
+                if (elements.length > 0) {
+                    const text = {
+                        'pt': 'Finalizar Doação',
+                        'en': 'Finalize Donation',
+                        'fr': 'Finaliser le Don'
+                    };
+                    elements[0].textContent = text[lang];
+                }
+            });
         }
     }
 
-    resetDonationForm() {
-        this.selectedAmount = 0;
-        this.selectedMethod = '';
+    function resetDonationForm() {
+        selectedAmount = 0;
+        selectedMethod = '';
         
-        // Reset buttons
-        document.querySelectorAll('.amount-btn').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('active'));
+        amountButtons.forEach(btn => btn.classList.remove('active'));
+        paymentOptions.forEach(opt => opt.classList.remove('active'));
         
-        // Reset inputs
-        const customAmount = document.getElementById('customAmount');
         if (customAmount) customAmount.value = '';
+        if (paymentDetails) paymentDetails.innerHTML = '';
         
-        // Reset details
-        const detailsContainer = document.getElementById('paymentDetails');
-        if (detailsContainer) detailsContainer.innerHTML = '';
-        
-        this.updateDonationButton();
+        updateDonationButton();
     }
 
-    processDonation() {
-        if (this.selectedAmount === 0 || !this.selectedMethod) {
-            alert('Por favor, selecione um valor e método de pagamento.');
+    function processDonation() {
+        if (selectedAmount === 0 || !selectedMethod) {
+            showNotification('Por favor, selecione um valor e método de pagamento.', 'error');
             return;
         }
 
-        const amountText = this.selectedAmount.toLocaleString('pt-MZ') + ' MT';
+        const amountText = selectedAmount.toLocaleString('pt-MZ') + ' MT';
         const messages = {
             'pt': `Obrigado pela sua doação de ${amountText}! Instruções de pagamento foram enviadas para o método selecionado.`,
             'en': `Thank you for your donation of ${amountText}! Payment instructions have been sent to the selected method.`,
             'fr': `Merci pour votre don de ${amountText}! Les instructions de paiement ont été envoyées à la méthode sélectionnée.`
         };
 
-        alert(messages[this.currentLang] || messages['pt']);
-        this.closeModal('donation');
+        showNotification(messages[currentLang] || messages['pt'], 'success');
+        closeModal(donationModal);
         
-        // Log para analytics
-        console.log(`💸 Doação processada: ${amountText} via ${this.selectedMethod}`);
+        console.log(`💸 Doação processada: ${amountText} via ${selectedMethod}`);
     }
 
-    // ===== FORMULÁRIOS =====
-    setupFormHandlers() {
-        const contactForm = document.getElementById('contact-form');
-        if (contactForm) {
-            contactForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.handleContactForm(contactForm);
-            });
-        }
-    }
-
-    handleContactForm(form) {
-        const formData = new FormData(form);
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const message = formData.get('message');
-
-        // Validação básica
-        if (!name || !email || !message) {
-            this.showNotification('Por favor, preencha todos os campos.', 'error');
-            return;
-        }
-
-        if (!this.isValidEmail(email)) {
-            this.showNotification('Por favor, insira um email válido.', 'error');
-            return;
-        }
-
-        // Simular envio
-        this.showNotification('Mensagem enviada com sucesso! Entraremos em contacto em breve.', 'success');
-        form.reset();
-        
-        // Log para analytics
-        console.log(`📧 Formulário de contacto enviado por: ${name} (${email})`);
-    }
-
-    isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
-
-    showNotification(message, type = 'info') {
-        // Criar notificação
-        const notification = document.createElement('div');
-        notification.className = `notification notification-${type}`;
-        notification.innerHTML = `
-            <div class="notification-content">
-                <span>${message}</span>
-                <button class="notification-close">&times;</button>
-            </div>
-        `;
-
-        // Estilos da notificação
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: ${type === 'success' ? '#27ae60' : type === 'error' ? '#e74c3c' : '#3498db'};
-            color: white;
-            padding: 15px 20px;
-            border-radius: 5px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            z-index: 3000;
-            max-width: 400px;
-            animation: slideInRight 0.3s ease;
-        `;
-
-        document.body.appendChild(notification);
-
-        // Auto-remover após 5 segundos
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.style.animation = 'slideOutRight 0.3s ease';
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 300);
-            }
-        }, 5000);
-
-        // Fechar ao clicar no X
-        notification.querySelector('.notification-close').addEventListener('click', () => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
+    // Contadores animados para estatísticas
+    const statNumbers = document.querySelectorAll('.stat-number[data-count]');
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const statNumber = entry.target;
+                const target = parseInt(statNumber.getAttribute('data-count'));
+                animateCounter(statNumber, target);
+                counterObserver.unobserve(statNumber);
             }
         });
-    }
+    }, {
+        threshold: 0.3,
+        rootMargin: '0px 0px -100px 0px'
+    });
 
-    // ===== CONTADORES ANIMADOS =====
-    setupCounters() {
-        const statNumbers = document.querySelectorAll('.stat-number[data-count]');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const statNumber = entry.target;
-                    const target = parseInt(statNumber.getAttribute('data-count'));
-                    this.animateCounter(statNumber, target);
-                    observer.unobserve(statNumber);
-                }
-            });
-        }, {
-            threshold: 0.3,
-            rootMargin: '0px 0px -100px 0px'
-        });
+    statNumbers.forEach(stat => {
+        counterObserver.observe(stat);
+    });
 
-        statNumbers.forEach(stat => {
-            observer.observe(stat);
-        });
-    }
-
-    animateCounter(element, target) {
+    function animateCounter(element, target) {
         const duration = 2000;
         const step = target / (duration / 16);
         let current = 0;
@@ -517,94 +506,34 @@ class GuphassanaApp {
         }, 16);
     }
 
-    // ===== OBSERVER DE INTERSECTION =====
-    setupIntersectionObserver() {
-        const fadeElements = document.querySelectorAll('.access-card, .work-card, .project-card, .story-card, .mv-item');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        });
-
-        fadeElements.forEach(element => {
-            element.style.opacity = '0';
-            element.style.transform = 'translateY(30px)';
-            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(element);
-        });
-    }
-
-    // ===== EFEITOS DE SCROLL =====
-    setupScrollEffects() {
-        let ticking = false;
-        
-        const updateParallax = () => {
-            const scrolled = window.pageYOffset;
-            const parallaxElements = document.querySelectorAll('.hero-background');
-            
-            parallaxElements.forEach(element => {
-                const speed = 0.5;
-                element.style.transform = `translateY(${scrolled * speed}px)`;
-            });
-            
-            ticking = false;
-        };
-
-        const requestTick = () => {
-            if (!ticking) {
-                requestAnimationFrame(updateParallax);
-                ticking = true;
-            }
-        };
-
-        window.addEventListener('scroll', requestTick);
-    }
-
-    // ===== ATUALIZAR VISIBILIDADE DE IDIOMA =====
-    updateLanguageVisibility() {
-        document.querySelectorAll('[data-lang]').forEach(element => {
-            if (element.getAttribute('data-lang') === this.currentLang) {
-                element.style.display = '';
-            } else {
-                element.style.display = 'none';
+    // Animações de entrada para elementos
+    const fadeElements = document.querySelectorAll('.access-card, .work-card, .project-card, .story-card, .mv-item');
+    const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
             }
         });
-    }
-}
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
 
-// ===== INICIALIZAÇÃO DA APLICAÇÃO =====
-document.addEventListener('DOMContentLoaded', () => {
-    // Aguardar o DOM estar completamente pronto
-    setTimeout(() => {
-        window.guphassanaApp = new GuphassanaApp();
-    }, 100);
+    fadeElements.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        fadeObserver.observe(element);
+    });
+
+    // Inicializar sistema de tradução com Português como padrão
+    switchLanguage('pt', document.getElementById('translate-pt'));
+
+    console.log('✅ Todos os sistemas inicializados com sucesso');
 });
 
-// ===== FALLBACK PARA NAVEGADORES ANTIGOS =====
-if (typeof window.IntersectionObserver === 'undefined') {
-    // Polyfill básico para IntersectionObserver
-    window.IntersectionObserver = class {
-        constructor() { this.observers = []; }
-        observe() { }
-        unobserve() { }
-    };
-    
-    // Fallback para quando o DOM carregar
-    document.addEventListener('DOMContentLoaded', () => {
-        const loadingScreen = document.getElementById('loadingScreen');
-        if (loadingScreen) {
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-            }, 2000);
-        }
-    });
-}
-
-console.log('📄 Associação Guphassana - JavaScript carregado');
+// Garantir que tudo funcione após carregamento completo
+window.addEventListener('load', function() {
+    console.log('🎉 Página totalmente carregada - Associação Guphassana');
+});
