@@ -1,556 +1,833 @@
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🌍 Associação Guphassana - Site inicializado');
-    
-    // Gerenciamento da Loading Screen
-    const loadingScreen = document.getElementById('loadingScreen');
-    if (loadingScreen) {
+// Sistema principal da Associação Guphassana
+class GuphassanaSite {
+    constructor() {
+        this.currentLanguage = 'pt';
+        this.selectedAmount = null;
+        this.selectedPaymentMethod = null;
+        this.donationModal = null;
+        this.volunteerModal = null;
+        this.init();
+    }
+
+    init() {
+        this.hideLoadingScreen();
+        this.setupEventListeners();
+        this.setupScrollEffects();
+        this.setupAnimations();
+        this.initializeLanguageSystem();
+        this.initializeModals();
+        this.setupDonationSystem();
+    }
+
+    hideLoadingScreen() {
         window.addEventListener('load', () => {
             setTimeout(() => {
-                loadingScreen.style.opacity = '0';
-                setTimeout(() => {
-                    loadingScreen.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }, 500);
+                const loadingScreen = document.getElementById('loadingScreen');
+                if (loadingScreen) {
+                    loadingScreen.classList.add('hidden');
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 500);
+                }
             }, 1000);
         });
-
-        // Fallback caso a página demore muito para carregar
-        setTimeout(() => {
-            if (loadingScreen.style.display !== 'none') {
-                loadingScreen.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-        }, 5000);
     }
 
-    // Sistema de Navegação
-    const navLinks = document.querySelectorAll('.nav-link');
-    const header = document.querySelector('.main-header');
+    setupEventListeners() {
+        // Navegação suave
+        this.setupSmoothNavigation();
+        
+        // Botões de ação principais
+        this.setupActionButtons();
+        
+        // Formulário de contacto
+        this.setupContactForm();
+        
+        // Observador para menu ativo durante scroll
+        this.setupScrollSpy();
+    }
 
-    // Navegação suave
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = link.getAttribute('href');
-            scrollToSection(targetId, link);
-        });
-    });
-
-    function scrollToSection(sectionId, clickedLink = null) {
-        const targetSection = document.querySelector(sectionId);
-        if (targetSection) {
-            const headerHeight = header.offsetHeight;
-            const offsetTop = targetSection.offsetTop - headerHeight - 20;
-            
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
+    setupSmoothNavigation() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    this.updateActiveNav(anchor.getAttribute('href'));
+                }
             });
-            
-            if (clickedLink) {
-                navLinks.forEach(l => l.classList.remove('active'));
-                clickedLink.classList.add('active');
-            }
+        });
+    }
+
+    setupActionButtons() {
+        // Botões de doação
+        document.querySelectorAll('#donate-btn, #hero-donate').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.showDonationModal();
+            });
+        });
+
+        // Botão de voluntariado
+        document.getElementById('hero-volunteer')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.showVolunteerModal();
+        });
+
+        // Botão de parcerias
+        document.getElementById('hero-partner')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.showPartnershipInfo();
+        });
+    }
+
+    setupContactForm() {
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleFormSubmit(contactForm);
+            });
         }
     }
 
-    // Efeito de header ao scroll
-    let lastScroll = 0;
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
+    setupScrollEffects() {
+        const header = document.querySelector('.main-header');
         
-        if (currentScroll > 100) {
-            header.style.background = 'rgba(255, 255, 255, 0.95)';
-            header.style.backdropFilter = 'blur(10px)';
-            header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
-            
-            if (currentScroll > lastScroll && currentScroll > 200) {
-                header.style.transform = 'translateY(-100%)';
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
             } else {
-                header.style.transform = 'translateY(0)';
+                header.classList.remove('scrolled');
             }
-        } else {
-            header.style.background = 'var(--bg-white)';
-            header.style.backdropFilter = 'none';
-            header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
-            header.style.transform = 'translateY(0)';
-        }
-        
-        lastScroll = currentScroll;
-    });
+        });
+    }
 
-    // Observer para navegação ativa
-    const sections = document.querySelectorAll('section[id]');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.getAttribute('id');
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add('active');
+    setupScrollSpy() {
+        const sections = document.querySelectorAll('section[id]');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    this.updateActiveNav(`#${id}`);
+                }
+            });
+        }, { 
+            threshold: 0.3,
+            rootMargin: '-100px 0px -100px 0px'
+        });
+
+        sections.forEach(section => observer.observe(section));
+    }
+
+    updateActiveNav(hash) {
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        const activeLink = document.querySelector(`.nav-link[href="${hash}"]`);
+        if (activeLink) {
+            activeLink.classList.add('active');
+        }
+    }
+
+    setupAnimations() {
+        // Animar números de estatísticas
+        this.animateStats();
+        
+        // Observer para elementos
+        this.setupIntersectionObserver();
+    }
+
+    setupIntersectionObserver() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, { 
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        // Observar elementos para animação
+        const elementsToAnimate = document.querySelectorAll(
+            '.access-card, .work-card, .project-card, .mv-item, .story-card, .stat-item'
+        );
+        
+        elementsToAnimate.forEach(el => {
+            observer.observe(el);
+        });
+    }
+
+    animateStats() {
+        const stats = document.querySelectorAll('.stat-number[data-count]');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.countUp(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        stats.forEach(stat => observer.observe(stat));
+    }
+
+    countUp(element) {
+        const target = parseInt(element.getAttribute('data-count'));
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                element.textContent = target;
+                clearInterval(timer);
+            } else {
+                element.textContent = Math.floor(current);
+            }
+        }, 16);
+    }
+
+    // SISTEMA DE TRADUÇÃO
+    initializeLanguageSystem() {
+        // Adicionar event listeners aos botões de idioma
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const lang = btn.id.replace('translate-', '');
+                this.switchLanguage(lang);
+            });
+        });
+
+        // Inicializar com português
+        this.switchLanguage('pt');
+    }
+
+    switchLanguage(lang) {
+        this.currentLanguage = lang;
+        
+        // Atualizar botões ativos
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.getElementById(`translate-${lang}`).classList.add('active');
+
+        // Esconder todos os textos
+        document.querySelectorAll('[data-lang]').forEach(el => {
+            el.style.display = 'none';
+        });
+        
+        // Mostrar textos do idioma selecionado
+        document.querySelectorAll(`[data-lang="${lang}"]`).forEach(el => {
+            el.style.display = el.tagName === 'DIV' ? 'block' : 'inline';
+        });
+
+        // Atualizar atributo lang do HTML
+        document.documentElement.lang = lang;
+
+        // Atualizar conteúdo dos modais se estiverem abertos
+        this.updateModalContent();
+    }
+
+    // SISTEMA DE MODAIS
+    initializeModals() {
+        this.donationModal = document.getElementById('donationModal');
+        this.volunteerModal = document.getElementById('volunteerModal');
+
+        // Fechar modais ao clicar no X
+        document.getElementById('closeDonationModal')?.addEventListener('click', () => {
+            this.hideDonationModal();
+        });
+
+        document.getElementById('closeVolunteerModal')?.addEventListener('click', () => {
+            this.hideVolunteerModal();
+        });
+
+        // Fechar modais ao clicar fora
+        [this.donationModal, this.volunteerModal].forEach(modal => {
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        this.hideModal(modal);
                     }
                 });
             }
         });
-    }, {
-        threshold: 0.3,
-        rootMargin: '-100px 0px -100px 0px'
-    });
 
-    sections.forEach(section => {
-        if (section.id) {
-            observer.observe(section);
-        }
-    });
-
-    // Sistema de Modais
-    const donationModal = document.getElementById('donationModal');
-    const volunteerModal = document.getElementById('volunteerModal');
-
-    // Abrir modais
-    document.getElementById('donate-btn')?.addEventListener('click', () => openModal(donationModal));
-    document.getElementById('hero-donate')?.addEventListener('click', () => openModal(donationModal));
-    document.getElementById('hero-volunteer')?.addEventListener('click', () => openModal(volunteerModal));
-
-    // Fechar modais
-    document.getElementById('closeDonationModal')?.addEventListener('click', () => closeModal(donationModal));
-    document.getElementById('closeVolunteerModal')?.addEventListener('click', () => closeModal(volunteerModal));
-
-    // Fechar modal ao clicar fora
-    [donationModal, volunteerModal].forEach(modal => {
-        modal?.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal(modal);
+        // Fechar com ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.hideAllModals();
+            }
         });
-    });
+    }
 
-    // Fechar modal com ESC
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            closeModal(donationModal);
-            closeModal(volunteerModal);
-        }
-    });
+    showDonationModal() {
+        this.showModal(this.donationModal);
+    }
 
-    function openModal(modal) {
+    hideDonationModal() {
+        this.hideModal(this.donationModal);
+        this.resetDonationForm();
+    }
+
+    showVolunteerModal() {
+        this.showModal(this.volunteerModal);
+    }
+
+    hideVolunteerModal() {
+        this.hideModal(this.volunteerModal);
+    }
+
+    showModal(modal) {
         if (modal) {
-            modal.style.display = 'block';
+            modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            document.body.style.paddingRight = '15px';
+        }
+    }
+
+    hideModal(modal) {
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+
+    hideAllModals() {
+        this.hideDonationModal();
+        this.hideVolunteerModal();
+    }
+
+    updateModalContent() {
+        // Atualizar conteúdo dos modais baseado no idioma atual
+        // O conteúdo já está no HTML com data-lang, só precisa ser mostrado/ocultado
+    }
+
+    // SISTEMA DE DOAÇÕES
+    setupDonationSystem() {
+        this.setupAmountSelection();
+        this.setupPaymentMethodSelection();
+        this.setupFinalDonation();
+    }
+
+    setupAmountSelection() {
+        // Botões de valor pré-definido
+        document.querySelectorAll('.amount-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.selectedAmount = btn.getAttribute('data-amount');
+                document.getElementById('customAmount').value = '';
+                this.updateDonationButton();
+            });
+        });
+
+        // Valor personalizado
+        const customAmountInput = document.getElementById('customAmount');
+        if (customAmountInput) {
+            customAmountInput.addEventListener('input', (e) => {
+                document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+                this.selectedAmount = e.target.value;
+                this.updateDonationButton();
+            });
+        }
+    }
+
+    setupPaymentMethodSelection() {
+        document.querySelectorAll('.payment-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('active'));
+                option.classList.add('active');
+                this.selectedPaymentMethod = option.getAttribute('data-method');
+                this.showPaymentDetails(this.selectedPaymentMethod);
+                this.updateDonationButton();
+            });
+        });
+    }
+
+    showPaymentDetails(method) {
+        const detailsContainer = document.getElementById('paymentDetails');
+        if (!detailsContainer) return;
+
+        const paymentDetails = {
+            mpesa: {
+                title: this.getTranslation('mpesa_title'),
+                instructions: this.getTranslation('mpesa_instructions'),
+                number: '+258 82 393 3624',
+                steps: [
+                    this.getTranslation('mpesa_step1'),
+                    this.getTranslation('mpesa_step2'),
+                    this.getTranslation('mpesa_step3')
+                ]
+            },
+            emola: {
+                title: this.getTranslation('emola_title'),
+                instructions: this.getTranslation('emola_instructions'),
+                number: '+258 87 923 3624',
+                steps: [
+                    this.getTranslation('emola_step1'),
+                    this.getTranslation('emola_step2'),
+                    this.getTranslation('emola_step3')
+                ]
+            },
+            bank: {
+                title: this.getTranslation('bank_title'),
+                instructions: this.getTranslation('bank_instructions'),
+                details: `
+                    <strong>${this.getTranslation('bank_name')}:</strong> Banco Comercial de Moçambique<br>
+                    <strong>${this.getTranslation('account_name')}:</strong> Associação Guphassana<br>
+                    <strong>${this.getTranslation('account_number')}:</strong> 123456789012<br>
+                    <strong>${this.getTranslation('nib')}:</strong> 1234 5678 9012 3456 7890 1<br>
+                    <strong>${this.getTranslation('swift')}:</strong> BCMOMZMA
+                `
+            },
+            paypal: {
+                title: 'PayPal',
+                instructions: this.getTranslation('paypal_instructions'),
+                email: 'info.guphassana@gmail.com',
+                steps: [
+                    this.getTranslation('paypal_step1'),
+                    this.getTranslation('paypal_step2'),
+                    this.getTranslation('paypal_step3')
+                ]
+            }
+        };
+
+        const details = paymentDetails[method];
+        if (!details) return;
+
+        let html = `
+            <h5>${details.title}</h5>
+            <p>${details.instructions}</p>
+        `;
+
+        if (method === 'mpesa' || method === 'emola') {
+            html += `
+                <p><strong>${this.getTranslation('phone_number')}:</strong> ${details.number}</p>
+                <div class="instructions">
+                    <strong>${this.getTranslation('how_to')}:</strong>
+                    <ul>
+                        ${details.steps.map(step => `<li>${step}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        } else if (method === 'bank') {
+            html += `
+                <div class="instructions">
+                    ${details.details}
+                </div>
+            `;
+        } else if (method === 'paypal') {
+            html += `
+                <p><strong>${this.getTranslation('paypal_email')}:</strong> ${details.email}</p>
+                <div class="instructions">
+                    <strong>${this.getTranslation('how_to')}:</strong>
+                    <ul>
+                        ${details.steps.map(step => `<li>${step}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
+        detailsContainer.innerHTML = html;
+    }
+
+    getTranslation(key) {
+        const translations = {
+            // Títulos
+            'mpesa_title': {
+                pt: 'M-Pesa - Pagamento por Mobile Money',
+                en: 'M-Pesa - Mobile Money Payment',
+                fr: 'M-Pesa - Paiement Mobile Money'
+            },
+            'emola_title': {
+                pt: 'e-Mola - Carteira Digital',
+                en: 'e-Mola - Digital Wallet',
+                fr: 'e-Mola - Portefeuille Numérique'
+            },
+            'bank_title': {
+                pt: 'Transferência Bancária',
+                en: 'Bank Transfer',
+                fr: 'Virement Bancaire'
+            },
+            'paypal_instructions': {
+                pt: 'Faça sua doação através do PayPal de forma segura.',
+                en: 'Make your donation securely through PayPal.',
+                fr: 'Faites votre don en toute sécurité via PayPal.'
+            },
+
+            // Instruções
+            'mpesa_instructions': {
+                pt: 'Faça a transferência para o número abaixo:',
+                en: 'Transfer to the number below:',
+                fr: 'Transférez au numéro ci-dessous:'
+            },
+            'emola_instructions': {
+                pt: 'Utilize o número da carteira e-Mola:',
+                en: 'Use the e-Mola wallet number:',
+                fr: 'Utilisez le numéro de portefeuille e-Mola:'
+            },
+            'bank_instructions': {
+                pt: 'Utilize os dados bancários abaixo para transferência:',
+                en: 'Use the bank details below for transfer:',
+                fr: 'Utilisez les coordonnées bancaires ci-dessous pour le virement:'
+            },
+
+            // Passos M-Pesa/e-Mola
+            'mpesa_step1': {
+                pt: 'Aceda ao menu M-Pesa no seu telemóvel',
+                en: 'Access the M-Pesa menu on your mobile',
+                fr: 'Accédez au menu M-Pesa sur votre mobile'
+            },
+            'mpesa_step2': {
+                pt: 'Selecione "Enviar Dinheiro"',
+                en: 'Select "Send Money"',
+                fr: 'Sélectionnez "Envoyer de l\'argent"'
+            },
+            'mpesa_step3': {
+                pt: 'Insira o número +258 82 393 3624 e o valor',
+                en: 'Enter number +258 82 393 3624 and amount',
+                fr: 'Entrez le numéro +258 82 393 3624 et le montant'
+            },
+            'emola_step1': {
+                pt: 'Abra a aplicação e-Mola',
+                en: 'Open the e-Mola application',
+                fr: 'Ouvrez l\'application e-Mola'
+            },
+            'emola_step2': {
+                pt: 'Selecione "Transferir"',
+                en: 'Select "Transfer"',
+                fr: 'Sélectionnez "Transférer"'
+            },
+            'emola_step3': {
+                pt: 'Insira o número +258 87 923 3624 e o valor',
+                en: 'Enter number +258 87 923 3624 and amount',
+                fr: 'Entrez le numéro +258 87 923 3624 et le montant'
+            },
+
+            // Passos PayPal
+            'paypal_step1': {
+                pt: 'Aceda ao www.paypal.com',
+                en: 'Go to www.paypal.com',
+                fr: 'Allez sur www.paypal.com'
+            },
+            'paypal_step2': {
+                pt: 'Faça login na sua conta PayPal',
+                en: 'Log in to your PayPal account',
+                fr: 'Connectez-vous à votre compte PayPal'
+            },
+            'paypal_step3': {
+                pt: 'Envie o valor para info.guphassana@gmail.com',
+                en: 'Send the amount to info.guphassana@gmail.com',
+                fr: 'Envoyez le montant à info.guphassana@gmail.com'
+            },
+
+            // Dados bancários
+            'bank_name': {
+                pt: 'Nome do Banco',
+                en: 'Bank Name',
+                fr: 'Nom de la Banque'
+            },
+            'account_name': {
+                pt: 'Nome da Conta',
+                en: 'Account Name',
+                fr: 'Nom du Compte'
+            },
+            'account_number': {
+                pt: 'Número da Conta',
+                en: 'Account Number',
+                fr: 'Numéro de Compte'
+            },
+            'nib': {
+                pt: 'NIB',
+                en: 'NIB',
+                fr: 'NIB'
+            },
+            'swift': {
+                pt: 'Código SWIFT',
+                en: 'SWIFT Code',
+                fr: 'Code SWIFT'
+            },
+
+            // Textos gerais
+            'phone_number': {
+                pt: 'Número de Telefone',
+                en: 'Phone Number',
+                fr: 'Numéro de Téléphone'
+            },
+            'paypal_email': {
+                pt: 'Email do PayPal',
+                en: 'PayPal Email',
+                fr: 'Email PayPal'
+            },
+            'how_to': {
+                pt: 'Como fazer:',
+                en: 'How to:',
+                fr: 'Comment faire:'
+            }
+        };
+
+        const translation = translations[key];
+        return translation ? translation[this.currentLanguage] || translation.pt : key;
+    }
+
+    updateDonationButton() {
+        const donateButton = document.getElementById('finalizeDonation');
+        if (donateButton) {
+            const isReady = this.selectedAmount && this.selectedPaymentMethod;
+            donateButton.disabled = !isReady;
             
-            // Reset do modal de doação ao abrir
-            if (modal === donationModal) {
-                resetDonationForm();
+            if (isReady) {
+                const amountText = this.selectedAmount === 'custom' ? 
+                    document.getElementById('customAmount').value : 
+                    this.selectedAmount;
+                
+                donateButton.innerHTML = `
+                    ${this.getTranslation('finalize_donation')} - ${amountText} MT
+                `;
+            } else {
+                donateButton.innerHTML = this.getTranslation('finalize_donation');
             }
         }
     }
 
-    function closeModal(modal) {
-        if (modal) {
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
-            document.body.style.paddingRight = '';
+    setupFinalDonation() {
+        const donateButton = document.getElementById('finalizeDonation');
+        if (donateButton) {
+            donateButton.addEventListener('click', () => {
+                this.processDonation();
+            });
         }
     }
 
-    // Sistema de Formulário de Contacto
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            handleContactForm(contactForm);
-        });
+    processDonation() {
+        if (!this.selectedAmount || !this.selectedPaymentMethod) {
+            this.showNotification(
+                this.getTranslation('select_amount_method'),
+                'error'
+            );
+            return;
+        }
+
+        const amount = this.selectedAmount === 'custom' ? 
+            document.getElementById('customAmount').value : 
+            this.selectedAmount;
+
+        // Simular processamento
+        this.showNotification(
+            this.getTranslation('processing_donation').replace('{amount}', amount),
+            'info'
+        );
+
+        // Simular sucesso após 2 segundos
+        setTimeout(() => {
+            this.showNotification(
+                this.getTranslation('donation_success').replace('{amount}', amount),
+                'success'
+            );
+            this.hideDonationModal();
+            this.resetDonationForm();
+        }, 2000);
     }
 
-    function handleContactForm(form) {
-        const formData = new FormData(form);
-        const name = formData.get('name').trim();
-        const email = formData.get('email').trim();
-        const message = formData.get('message').trim();
-
-        // Validação
-        if (!name || !email || !message) {
-            showNotification('Por favor, preencha todos os campos.', 'error');
-            return;
-        }
-
-        if (!isValidEmail(email)) {
-            showNotification('Por favor, insira um email válido.', 'error');
-            return;
-        }
-
-        if (message.length < 10) {
-            showNotification('A mensagem deve ter pelo menos 10 caracteres.', 'error');
-            return;
-        }
-
-        // Simular envio
-        showNotification('Mensagem enviada com sucesso! Entraremos em contacto em breve.', 'success');
-        form.reset();
+    resetDonationForm() {
+        this.selectedAmount = null;
+        this.selectedPaymentMethod = null;
         
-        console.log(`📧 Formulário enviado: ${name} (${email})`);
+        document.querySelectorAll('.amount-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.payment-option').forEach(option => option.classList.remove('active'));
+        
+        const customAmountInput = document.getElementById('customAmount');
+        if (customAmountInput) customAmountInput.value = '';
+        
+        const detailsContainer = document.getElementById('paymentDetails');
+        if (detailsContainer) detailsContainer.innerHTML = '';
+        
+        this.updateDonationButton();
     }
 
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
-
-    // Sistema de Notificações
-    function showNotification(message, type = 'info') {
-        // Remover notificações existentes
-        document.querySelectorAll('.notification').forEach(notification => {
-            notification.remove();
-        });
+    // SISTEMA DE NOTIFICAÇÕES
+    showNotification(message, type = 'info') {
+        // Remover notificação anterior se existir
+        const existingNotification = document.querySelector('.notification');
+        if (existingNotification) {
+            existingNotification.remove();
+        }
 
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
-        notification.setAttribute('role', 'alert');
-        notification.setAttribute('aria-live', 'polite');
-        
         notification.innerHTML = `
             <div class="notification-content">
+                <i class="fas fa-${this.getNotificationIcon(type)}"></i>
                 <span>${message}</span>
-                <button class="notification-close" aria-label="Fechar notificação">&times;</button>
             </div>
         `;
 
-        const styles = {
-            success: '#27ae60',
-            error: '#e74c3c',
-            info: '#3498db'
-        };
-
+        // Adicionar estilos
         notification.style.cssText = `
             position: fixed;
             top: 20px;
             right: 20px;
-            background: ${styles[type] || styles.info};
+            background: ${this.getNotificationColor(type)};
             color: white;
-            padding: 15px 20px;
+            padding: 1rem 1.5rem;
             border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             z-index: 3000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
             max-width: 400px;
-            animation: slideInRight 0.3s ease;
         `;
-
-        // Adicionar animação CSS
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideInRight {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            @keyframes slideOutRight {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
 
         document.body.appendChild(notification);
 
+        // Animação de entrada
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+
         // Auto-remover após 5 segundos
-        const autoRemove = setTimeout(() => {
-            if (notification.parentNode) {
-                notification.style.animation = 'slideOutRight 0.3s ease';
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 300);
-            }
+        setTimeout(() => {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 300);
         }, 5000);
+    }
 
-        // Fechar manualmente
-        notification.querySelector('.notification-close').addEventListener('click', () => {
-            clearTimeout(autoRemove);
-            if (notification.parentNode) {
-                notification.style.animation = 'slideOutRight 0.3s ease';
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 300);
+    getNotificationIcon(type) {
+        const icons = {
+            success: 'check-circle',
+            error: 'exclamation-circle',
+            info: 'info-circle',
+            warning: 'exclamation-triangle'
+        };
+        return icons[type] || 'info-circle';
+    }
+
+    getNotificationColor(type) {
+        const colors = {
+            success: '#4caf50',
+            error: '#f44336',
+            info: '#2196f3',
+            warning: '#ff9800'
+        };
+        return colors[type] || '#2196f3';
+    }
+
+    // OUTRAS FUNCIONALIDADES
+    handleFormSubmit(form) {
+        const button = form.querySelector('button[type="submit"]');
+        const originalText = button.innerHTML;
+
+        // Simular envio
+        button.disabled = true;
+        button.innerHTML = this.currentLanguage === 'pt' ? 
+            '<i class="fas fa-spinner fa-spin"></i> Enviando...' :
+            this.currentLanguage === 'en' ?
+            '<i class="fas fa-spinner fa-spin"></i> Sending...' :
+            '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+
+        setTimeout(() => {
+            const successMessage = this.currentLanguage === 'pt' ? 
+                'Mensagem enviada com sucesso! Entraremos em contacto em breve.' :
+                this.currentLanguage === 'en' ?
+                'Message sent successfully! We will contact you soon.' :
+                'Message envoyée avec succès ! Nous vous contacterons bientôt.';
+                
+            this.showNotification(successMessage, 'success');
+            form.reset();
+            button.disabled = false;
+            button.innerHTML = originalText;
+        }, 2000);
+    }
+
+    showPartnershipInfo() {
+        const message = this.currentLanguage === 'pt' ?
+            'Para parcerias empresariais ou institucionais, contacte-nos através do email info.guphassana@gmail.com ou telefone +258 823 933 624.' :
+            this.currentLanguage === 'en' ?
+            'For business or institutional partnerships, contact us at info.guphassana@gmail.com or phone +258 823 933 624.' :
+            'Pour des partenariats d\'entreprise ou institutionnels, contactez-nous à info.guphassana@gmail.com ou téléphone +258 823 933 624.';
+        
+        this.showNotification(message, 'info');
+    }
+
+    // Traduções adicionais para o sistema de doações
+    getTranslation(key) {
+        const translations = {
+            'finalize_donation': {
+                pt: 'Finalizar Doação',
+                en: 'Finalize Donation',
+                fr: 'Finaliser le Don'
+            },
+            'select_amount_method': {
+                pt: 'Por favor, selecione o valor e método de pagamento.',
+                en: 'Please select amount and payment method.',
+                fr: 'Veuillez sélectionner le montant et la méthode de paiement.'
+            },
+            'processing_donation': {
+                pt: 'A processar sua doação de {amount} MT...',
+                en: 'Processing your {amount} MT donation...',
+                fr: 'Traitement de votre don de {amount} MT...'
+            },
+            'donation_success': {
+                pt: 'Obrigado! Sua doação de {amount} MT foi processada com sucesso.',
+                en: 'Thank you! Your {amount} MT donation was processed successfully.',
+                fr: 'Merci ! Votre don de {amount} MT a été traité avec succès.'
             }
-        });
-    }
-
-    // SISTEMA DE DOAÇÕES COMPLETO
-    let selectedAmount = 0;
-    let selectedMethod = '';
-
-    const amountButtons = document.querySelectorAll('.amount-btn');
-    const customAmount = document.getElementById('customAmount');
-    const paymentOptions = document.querySelectorAll('.payment-option');
-    const finalizeBtn = document.getElementById('finalizeDonation');
-    const paymentDetails = document.getElementById('paymentDetails');
-
-    // Configurar botões de valor
-    amountButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            console.log('💰 Valor selecionado:', button.getAttribute('data-amount'));
-            amountButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            selectedAmount = parseInt(button.getAttribute('data-amount'));
-            if (customAmount) customAmount.value = '';
-            updateDonationButton();
-        });
-    });
-
-    // Valor customizado
-    if (customAmount) {
-        customAmount.addEventListener('input', () => {
-            console.log('💰 Valor customizado:', customAmount.value);
-            amountButtons.forEach(btn => btn.classList.remove('active'));
-            selectedAmount = parseInt(customAmount.value) || 0;
-            updateDonationButton();
-        });
-
-        customAmount.addEventListener('focus', () => {
-            amountButtons.forEach(btn => btn.classList.remove('active'));
-        });
-    }
-
-    // Métodos de pagamento
-    paymentOptions.forEach(option => {
-        option.addEventListener('click', () => {
-            const method = option.getAttribute('data-method');
-            console.log('💳 Método selecionado:', method);
-            
-            paymentOptions.forEach(opt => opt.classList.remove('active'));
-            option.classList.add('active');
-            selectedMethod = method;
-            showPaymentDetails(selectedMethod);
-            updateDonationButton();
-        });
-    });
-
-    // Finalizar doação
-    if (finalizeBtn) {
-        finalizeBtn.addEventListener('click', processDonation);
-    }
-
-    function showPaymentDetails(method) {
-        if (!paymentDetails) {
-            console.error('❌ Elemento paymentDetails não encontrado');
-            return;
-        }
-
-        const details = {
-            mpesa: `
-                <h5>💰 M-Pesa</h5>
-                <p><strong>📱 Número:</strong> 82 393 3624</p>
-                <p><strong>👤 Nome:</strong> Associação Guphassana</p>
-                <p><small>💡 Use a referência: "DOAÇÃO" no campo de descrição</small></p>
-            `,
-            emola: `
-                <h5>💳 e-Mola</h5>
-                <p><strong>📱 Número:</strong> 82 393 3624</p>
-                <p><strong>👤 Nome:</strong> Associação Guphassana</p>
-                <p><small>💡 Transação: Doação para projetos sociais</small></p>
-            `,
-            bank: `
-                <h5>🏦 Transferência Bancária</h5>
-                <p><strong>Banco:</strong> Standard Bank Moçambique</p>
-                <p><strong>📋 Conta:</strong> 1234567890</p>
-                <p><strong>🔢 NIB:</strong> 00080001234567890</p>
-                <p><strong>👤 Titular:</strong> Associação Guphassana</p>
-            `,
-            paypal: `
-                <h5>🌐 PayPal</h5>
-                <p><strong>📧 Email:</strong> info.guphassana@gmail.com</p>
-                <p><small>💡 Envie para o email acima com a descrição "Doação"</small></p>
-            `
         };
 
-        paymentDetails.innerHTML = details[method] || '<p>Selecione um método de pagamento</p>';
-        console.log('📋 Detalhes de pagamento atualizados para:', method);
+        const translation = translations[key];
+        return translation ? translation[this.currentLanguage] || translation.pt : key;
     }
+}
 
-    function updateDonationButton() {
-        if (!finalizeBtn) {
-            console.error('❌ Botão finalizeDonation não encontrado');
-            return;
-        }
-
-        console.log('🔄 Atualizando botão - Valor:', selectedAmount, 'Método:', selectedMethod);
-
-        if (selectedAmount > 0 && selectedMethod) {
-            finalizeBtn.disabled = false;
-            finalizeBtn.innerHTML = `
-                <i class="fas fa-heart"></i>
-                <span>Doar ${selectedAmount.toLocaleString('pt-MZ')} MT via ${selectedMethod.toUpperCase()}</span>
-            `;
-            console.log('✅ Botão ativado');
-        } else {
-            finalizeBtn.disabled = true;
-            finalizeBtn.innerHTML = `
-                <i class="fas fa-heart"></i>
-                <span>Finalizar Doação</span>
-            `;
-            console.log('❌ Botão desativado - faltam seleções');
-        }
-    }
-
-    function resetDonationForm() {
-        console.log('🔄 Resetando formulário de doação');
-        selectedAmount = 0;
-        selectedMethod = '';
-        
-        amountButtons.forEach(btn => btn.classList.remove('active'));
-        paymentOptions.forEach(opt => opt.classList.remove('active'));
-        
-        if (customAmount) customAmount.value = '';
-        if (paymentDetails) paymentDetails.innerHTML = '<p>Selecione um método de pagamento para ver os detalhes</p>';
-        
-        updateDonationButton();
-    }
-
-    function processDonation() {
-        console.log('🚀 Processando doação...');
-        
-        if (selectedAmount === 0 || !selectedMethod) {
-            showNotification('Por favor, selecione um valor e método de pagamento.', 'error');
-            console.error('❌ Doação falhou - seleções incompletas');
-            return;
-        }
-
-        const amountText = selectedAmount.toLocaleString('pt-MZ') + ' MT';
-        const message = `Obrigado pela sua doação de ${amountText}! Instruções de pagamento foram enviadas para ${selectedMethod.toUpperCase()}.`;
-
-        showNotification(message, 'success');
-        closeModal(donationModal);
-        
-        console.log(`💸 Doação processada com sucesso: ${amountText} via ${selectedMethod}`);
-        
-        // Reset após sucesso
-        setTimeout(resetDonationForm, 1000);
-    }
-
-    // Contadores animados para estatísticas
-    const statNumbers = document.querySelectorAll('.stat-number[data-count]');
-    const counterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const statNumber = entry.target;
-                const target = parseInt(statNumber.getAttribute('data-count'));
-                animateCounter(statNumber, target);
-                counterObserver.unobserve(statNumber);
-            }
-        });
-    }, {
-        threshold: 0.3,
-        rootMargin: '0px 0px -100px 0px'
-    });
-
-    statNumbers.forEach(stat => {
-        if (stat.hasAttribute('data-count')) {
-            counterObserver.observe(stat);
-        }
-    });
-
-    function animateCounter(element, target) {
-        const duration = 2000;
-        const step = target / (duration / 16);
-        let current = 0;
-        
-        const timer = setInterval(() => {
-            current += step;
-            if (current >= target) {
-                current = target;
-                clearInterval(timer);
-            }
-            
-            const displayValue = Math.floor(current);
-            const hasPlus = element.textContent.includes('+');
-            element.textContent = displayValue.toLocaleString('pt-MZ') + (hasPlus ? '+' : '');
-        }, 16);
-    }
-
-    // Animações de entrada para elementos
-    const fadeElements = document.querySelectorAll('.access-card, .work-card, .project-card, .story-card, .mv-item');
-    const fadeObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
-
-    fadeElements.forEach(element => {
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(30px)';
-        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        fadeObserver.observe(element);
-    });
-
-    // Inicializar sistema de doações
-    resetDonationForm();
-
-    console.log('✅ Todos os sistemas inicializados com sucesso');
+// Inicializar quando o DOM estiver pronto
+document.addEventListener('DOMContentLoaded', () => {
+    new GuphassanaSite();
 });
 
-// Garantir que tudo funcione após carregamento completo
-window.addEventListener('load', function() {
-    console.log('🎉 Página totalmente carregada - Associação Guphassana');
-});
-
-// Adicionar estilos para notificações
+// Adicionar CSS para notificações
 const notificationStyles = document.createElement('style');
 notificationStyles.textContent = `
-    @keyframes slideInRight {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-    }
-    @keyframes slideOutRight {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(100%); opacity: 0; }
-    }
-    
-    .notification {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 3000;
-        max-width: 400px;
-        animation: slideInRight 0.3s ease;
-    }
-    
     .notification-content {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        padding: 15px 20px;
-        border-radius: 8px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        color: white;
+        gap: 0.8rem;
+        font-weight: 500;
     }
     
-    .notification-close {
-        background: none;
-        border: none;
-        color: inherit;
+    .notification-content i {
         font-size: 1.2rem;
-        cursor: pointer;
-        margin-left: 15px;
-        padding: 0;
-        width: 25px;
-        height: 25px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        transition: background-color 0.2s ease;
     }
     
-    .notification-close:hover {
-        background: rgba(255,255,255,0.2);
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+        }
+        to {
+            transform: translateX(0);
+        }
+    }
+    
+    @keyframes slideOutRight {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(100%);
+        }
     }
 `;
 document.head.appendChild(notificationStyles);
