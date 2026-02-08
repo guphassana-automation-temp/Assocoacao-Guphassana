@@ -1,164 +1,194 @@
-<!-- filename: index.html (substitui o teu index actual) -->
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Associação Guphassana - Proteção Infantil, Igualdade de Gênero, Saúde e Ambiente</title>
-  <meta name="description" content="Associação Guphassana - Protegendo crianças, promovendo igualdade de gênero, garantindo saúde universal e preservando o ambiente em Moçambique">
-  <meta name="keywords" content="ONG Moçambique, proteção infantil, igualdade de gênero, saúde, ambiente, Maxixe, doação">
-
-  <!-- estilos -->
-  <link rel="stylesheet" href="css/css.css" />
-  <!-- Font Awesome CDN (já usavas) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="" crossorigin="anonymous"/>
-  <link rel="icon" href="assets/logo.png" />
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Associação Guphassana - Transformando Vidas</title>
+    <meta name="description" content="Associação Guphassana - Proteção Infantil, Igualdade de Gênero, Saúde e Ambiente em Moçambique">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Associação Guphassana">
+    <meta property="og:description" content="Protegendo crianças, promovendo igualdade, garantindo saúde e preservando o ambiente">
+    <meta property="og:image" content="assets/images/logo-social.jpg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Associação Guphassana">
+    <meta name="twitter:description" content="Protegendo crianças, promovendo igualdade, garantindo saúde e preservando o ambiente">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Loading Screen -->
-  <div class="loading-screen" id="loadingScreen" aria-hidden="true">
-    <div class="loading-content" role="status" aria-live="polite">
-      <div class="loading-logo"><div class="logo-placeholder">AG</div></div>
-      <h3>Associação Guphassana</h3>
-      <div class="loading-spinner" aria-hidden="true"></div>
-    </div>
-  </div>
-
-  <!-- Top Bar -->
-  <div class="top-bar">
-    <div class="container">
-      <div class="top-bar-left">
-        <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Maxixe, Moçambique</span>
-        <span><i class="fas fa-phone" aria-hidden="true"></i> +258 823 933 624</span>
-      </div>
-      <div class="top-bar-right">
-        <a href="#donate" class="top-link">Doar</a>
-        <a href="#volunteer" class="top-link">Voluntariar</a>
-        <div class="language-switcher" role="tablist" aria-label="Idioma">
-          <button class="lang-btn active" id="translate-pt" role="tab" aria-selected="true">PT</button>
-          <button class="lang-btn" id="translate-en" role="tab" aria-selected="false">EN</button>
-          <button class="lang-btn" id="translate-fr" role="tab" aria-selected="false">FR</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Header Principal -->
-  <header class="main-header" id="home">
-    <div class="container">
-      <nav class="main-nav" role="navigation" aria-label="Menu principal">
-        <div class="logo-container">
-          <div class="logo-img">
-            <img src="assets/Logo_Guphassana.png" alt="Associação Guphassana" onerror="this.style.display='none'">
-            <div class="logo-fallback" aria-hidden="true">AG</div>
-          </div>
-          <div class="org-name">
-            <span class="org-main">Associação Guphassana</span>
-            <span class="org-sub">Ajuda Mútua</span>
-          </div>
-        </div>
-
-        <ul class="nav-menu">
-          <li><a href="#home" class="nav-link active">Início</a></li>
-          <li><a href="#about" class="nav-link">Quem Somos</a></li>
-          <li><a href="#work" class="nav-link">Áreas</a></li>
-          <li><a href="#projects" class="nav-link">Projetos</a></li>
-          <li><a href="#impact" class="nav-link">Impacto</a></li>
-          <li><a href="#contact" class="nav-link">Contacto</a></li>
-        </ul>
-
-        <div class="nav-actions">
-          <button class="btn-donate" id="donate-btn" aria-haspopup="dialog" aria-controls="donationModal">
-            <i class="fas fa-heart" aria-hidden="true"></i>
-            Doar Agora
-          </button>
-        </div>
-      </nav>
-    </div>
-  </header>
-
-  <!-- (mantive o teu conteúdo das seções; omito a repetição para brevidade) -->
-  <!-- ... HERO, QUICK ACCESS, ABOUT, WORK, PROJECTS, IMPACT, CONTACT ... -->
-  <!-- (copiar as secções do teu HTML original aqui, sem alterá-las) -->
-
-  <!-- Footer  (mantém o teu footer original) -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <!-- ... teu footer ... -->
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; <span id="currentYear"></span> Associação Guphassana. <span data-lang="pt">Todos os direitos reservados.</span></p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Modal de Doação (acessível) -->
-  <div class="modal" id="donationModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="donationTitle">
-    <div class="modal-overlay" id="donationOverlay" tabindex="-1"></div>
-    <div class="modal-panel" role="document">
-      <div class="modal-header">
-        <h3 id="donationTitle">Apoie a Associação Guphassana</h3>
-        <button class="close-modal" id="closeDonationModal" aria-label="Fechar">&times;</button>
-      </div>
-
-      <div class="modal-body">
-        <form id="donationForm" novalidate>
-          <fieldset class="amount-fieldset">
-            <legend>Escolha o valor da doação</legend>
-            <div class="amount-options">
-              <button type="button" class="amount-btn" data-amount="100">100 MT</button>
-              <button type="button" class="amount-btn" data-amount="500">500 MT</button>
-              <button type="button" class="amount-btn" data-amount="1000">1.000 MT</button>
-              <button type="button" class="amount-btn" data-amount="5000">5.000 MT</button>
-              <div class="custom-amount">
-                <label for="customAmount">Outro valor (MT)</label>
-                <input type="number" id="customAmount" name="customAmount" min="1" placeholder="Ex.: 750" inputmode="numeric" />
-              </div>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <div class="logo-spinner">
+                    <div class="spinner-circle"></div>
+                    <div class="spinner-text">AG</div>
+                </div>
             </div>
-          </fieldset>
-
-          <fieldset class="method-fieldset">
-            <legend>Método de Pagamento</legend>
-            <div class="payment-options" role="radiogroup" aria-label="Método de pagamento">
-              <label class="payment-option" data-method="emola">
-                <input type="radio" name="paymentMethod" value="emola" />
-                <i class="fas fa-wallet" aria-hidden="true"></i> e-Mola
-              </label>
-              <label class="payment-option" data-method="mpesa">
-                <input type="radio" name="paymentMethod" value="mpesa" />
-                <i class="fas fa-mobile-alt" aria-hidden="true"></i> M-Pesa
-              </label>
-              <label class="payment-option" data-method="bank">
-                <input type="radio" name="paymentMethod" value="bank" />
-                <i class="fas fa-university" aria-hidden="true"></i> Transferência Bancária
-              </label>
-              <label class="payment-option" data-method="paypal">
-                <input type="radio" name="paymentMethod" value="paypal" />
-                <i class="fab fa-paypal" aria-hidden="true"></i> PayPal / Cartão
-              </label>
-            </div>
-          </fieldset>
-
-          <div id="paymentDetails" class="payment-details" aria-live="polite">
-            <!-- Instruções dinâmicas por método serão inseridas aqui -->
-          </div>
-
-          <div class="donation-actions">
-            <button type="button" class="btn btn-ghost" id="cancelDonation">Cancelar</button>
-            <button type="submit" class="btn btn-primary" id="finalizeDonation" disabled>Finalizar Doação</button>
-          </div>
-        </form>
-      </div>
+            <h3 class="loading-title">Associação Guphassana</h3>
+            <p class="loading-subtitle">Carregando...</p>
+        </div>
     </div>
-  </div>
 
-  <!-- Toast -->
-  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+    <!-- Header & Navigation -->
+    <header class="main-header" id="mainHeader">
+        <div class="container">
+            <nav class="navbar">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="#home" class="logo-link">
+                        <div class="logo-icon">AG</div>
+                        <div class="logo-text">
+                            <span class="logo-title">Guphassana</span>
+                            <span class="logo-subtitle">Associação</span>
+                        </div>
+                    </a>
+                </div>
 
-  <!-- Scripts (coloca este ficheiro em js/app.js) -->
-  <script src="js/app.js" defer></script>
-  <script>document.getElementById('currentYear').textContent = new Date().getFullYear();</script>
+                <!-- Mobile Menu Toggle -->
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                </button>
+
+                <!-- Navigation Menu -->
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link active" data-nav="home">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#sobre" class="nav-link" data-nav="sobre">Sobre Nós</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#projetos" class="nav-link" data-nav="projetos">Projetos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#impacto" class="nav-link" data-nav="impacto">Impacto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contacto" class="nav-link" data-nav="contacto">Contacto</a>
+                    </li>
+                    <li class="nav-item nav-cta">
+                        <a href="#doar" class="btn btn-donate-nav">Doar Agora</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Protegendo Crianças, Transformando Comunidades</h1>
+                    <p class="hero-description">
+                        A Associação Guphassana trabalha para promover o bem-estar integral de crianças, 
+                        igualdade de gênero, saúde universal e preservação ambiental em Moçambique.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#doar" class="btn btn-primary">
+                            <i class="fas fa-heart"></i>
+                            Fazer Doação
+                        </a>
+                        <a href="#voluntariar" class="btn btn-secondary">
+                            <i class="fas fa-hands-helping"></i>
+                            Ser Voluntário
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section" id="sobre">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Sobre a Associação Guphassana</h2>
+                    <p class="section-subtitle">Conheça nossa missão, visão e valores</p>
+                </div>
+                <div class="about-content">
+                    <!-- Conteúdo será adicionado no próximo passo -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects-section" id="projetos">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Nossos Projetos</h2>
+                    <p class="section-subtitle">Iniciativas que transformam realidades</p>
+                </div>
+                <div class="projects-grid">
+                    <!-- Projetos serão adicionados -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Section -->
+        <section class="impact-section" id="impacto">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Nosso Impacto</h2>
+                    <p class="section-subtitle">Resultados que fazem a diferença</p>
+                </div>
+                <div class="impact-stats">
+                    <!-- Estatísticas serão adicionadas -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contacto">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Entre em Contacto</h2>
+                    <p class="section-subtitle">Junte-se à nossa causa</p>
+                </div>
+                <div class="contact-content">
+                    <!-- Formulário será adicionado -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Conteúdo do footer será adicionado -->
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Associação Guphassana. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Donation Modal -->
+    <div class="modal" id="donationModal">
+        <div class="modal-content">
+            <!-- Conteúdo do modal será adicionado -->
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
 </body>
 </html>
